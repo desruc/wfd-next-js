@@ -3,7 +3,7 @@ import getConfig from 'next/config';
 
 import Button from '@material-ui/core/Button';
 
-import PageHeader from '~/components/PageHeader';
+import PageHeader from '~/components/Global/PageHeader';
 
 const { publicRuntimeConfig } = getConfig();
 
