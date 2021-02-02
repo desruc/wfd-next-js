@@ -3,13 +3,12 @@ import { HYDRATE } from 'next-redux-wrapper';
 
 import { ClientState } from '../rootReducer';
 
+import { initialState as appState } from '../app/reducer';
+import { initialState as recipeState } from '../recipes/reducer';
+
 const initialState: ClientState = {
-  deployments: {
-    deployments: []
-  },
-  instances: {
-    instances: []
-  }
+  app: appState,
+  recipes: recipeState
 };
 
 const reducer = (state = initialState, action: AnyAction): ClientState => {
