@@ -28,3 +28,6 @@ You check for linting errors by running `yarn lint` and fix any linting errors a
 ## Build
 
 Run `yarn build` to create a production build
+
+## Roadmap
+- Type Thunk actions

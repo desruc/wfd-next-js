@@ -38,7 +38,7 @@ const recipesReducer = (
     case types.GET_PUBLIC_RECIPES_SUCCESS:
       return {
         ...state,
-        publicRecipes: mergeArray(state.publicRecipes, action.recipes)
+        publicRecipes: mergeArray(state.publicRecipes, action.publicRecipes)
       };
 
     case types.CREATE_RECIPE_SAVING_STATE:
