@@ -1,7 +1,9 @@
 import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
-import MuiButton from '@material-ui/core/Button';
+import MuiButton, {
+  ButtonProps as MuiButtonProps
+} from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles({
@@ -12,7 +14,7 @@ const useStyles = makeStyles({
   }
 });
 
-interface ButtonProps {
+interface ButtonProps extends MuiButtonProps {
   children?: React.ReactNode;
   disabled?: boolean;
   loading?: boolean;
