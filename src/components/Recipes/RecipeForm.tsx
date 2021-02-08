@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { ApiErrors } from 'types';
+
 import { Controller } from 'react-hook-form';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -28,9 +30,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 interface RecipeFormProps {
-  onSubmit: any;
+  onSubmit: () => void;
   saving?: boolean;
-  apiErrors?: any;
+  apiErrors?: ApiErrors | null;
 }
 
 const RecipeForm: React.FC<RecipeFormProps> = ({
