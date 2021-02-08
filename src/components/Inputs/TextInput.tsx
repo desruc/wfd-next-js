@@ -3,7 +3,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
-import Input from '@material-ui/core/Input';
+import Input, { InputProps } from '@material-ui/core/Input';
 import FormHelperText from '@material-ui/core/FormHelperText';
 
 import CheckRoundedIcon from '@material-ui/icons/CheckRounded';
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-interface TextInputProps {
+interface TextInputProps extends InputProps {
   inputRef?: React.Ref<HTMLInputElement>;
   id: string;
   name?: string;

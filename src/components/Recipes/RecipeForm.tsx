@@ -13,6 +13,7 @@ import { createRecipe } from '~/validation/recipes';
 import TextInput from '~/components/Inputs/TextInput';
 import Checkbox from '~/components/Inputs/Checkbox';
 import Button from '~/components/Inputs/Button';
+import ImageInput from '~/components/Inputs/ImageInput';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -30,15 +31,19 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 interface RecipeFormProps {
-  onSubmit: () => void;
+  onSubmit: (data: { [x: string]: any }) => void;
   saving?: boolean;
   apiErrors?: ApiErrors | null;
+  imageSrc?: string;
+  onImageSave: (x: string) => void;
 }
 
 const RecipeForm: React.FC<RecipeFormProps> = ({
   onSubmit,
   saving,
-  apiErrors
+  apiErrors,
+  imageSrc,
+  onImageSave
 }: RecipeFormProps) => {
   const classes = useStyles();
   const { register, handleSubmit, errors, control } = useValidatedForm(
@@ -49,6 +54,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({
 
   return (
     <>
+      <ImageInput src={imageSrc} onSave={onImageSave} />
       <Paper className={classes.paper}>
         <TextInput
           inputRef={register}
@@ -103,7 +109,8 @@ const RecipeForm: React.FC<RecipeFormProps> = ({
 
 RecipeForm.defaultProps = {
   saving: false,
-  apiErrors: null
+  apiErrors: null,
+  imageSrc: '/images/recipe-placeholder.png'
 };
 
 export default RecipeForm;
