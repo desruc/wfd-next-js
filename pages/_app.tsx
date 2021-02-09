@@ -3,6 +3,8 @@ import React from 'react';
 import Head from 'next/head';
 import { AppProps } from 'next/app';
 
+import { UserProvider } from '@auth0/nextjs-auth0';
+
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Box from '@material-ui/core/Box';
@@ -23,6 +25,8 @@ export default wrapper.withRedux(function App(props: AppProps): JSX.Element {
     }
   }, []);
 
+  const { user } = pageProps;
+
   return (
     <>
       <Head>
@@ -34,13 +38,20 @@ export default wrapper.withRedux(function App(props: AppProps): JSX.Element {
       </Head>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Box display="flex">
-          <Box flexGrow={1} overflow="hidden" paddingTop={14} paddingBottom={7}>
-            <Container maxWidth="xl">
-              <Component {...pageProps} />
-            </Container>
+        <UserProvider user={user}>
+          <Box display="flex">
+            <Box
+              flexGrow={1}
+              overflow="hidden"
+              paddingTop={14}
+              paddingBottom={7}
+            >
+              <Container maxWidth="xl">
+                <Component {...pageProps} />
+              </Container>
+            </Box>
           </Box>
-        </Box>
+        </UserProvider>
       </ThemeProvider>
     </>
   );
