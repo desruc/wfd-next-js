@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useUser } from '@auth0/nextjs-auth0';
 
 import PageHeader from '~/components/Global/PageHeader';
 import RecipeForm from '~/components/Recipes/RecipeForm';
@@ -8,9 +9,12 @@ import { createRecipe } from '~/state/recipes/actions';
 
 const CreateRecipeContent: React.FC = () => {
   const dispatch = useDispatch();
+  const {
+    user: { sub }
+  } = useUser();
 
   const onSubmit = (data): void => {
-    dispatch(createRecipe(data));
+    dispatch(createRecipe({ ...data, author: sub }));
   };
 
   const [imageSrc, setImageSrc] = useState('');
@@ -18,7 +22,7 @@ const CreateRecipeContent: React.FC = () => {
 
   return (
     <div>
-      <PageHeader title="WFD" />
+      <PageHeader title="Create recipe" />
       <RecipeForm
         onSubmit={onSubmit}
         imageSrc={imageSrc}

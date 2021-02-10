@@ -38,7 +38,7 @@ export const createRecipe = (recipe: CreateRecipePayload) => async (
   try {
     const {
       data: { data }
-    } = await axios.post('/v1/recipe', recipe);
+    } = await axios.post('/api/recipes', recipe);
 
     dispatch({
       type: types.CREATE_RECIPE_SUCCESS,
