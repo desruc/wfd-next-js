@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 interface Recipe {
-  uuid: string;
+  id: string;
   image: string;
   title: string;
   description: string;
@@ -36,7 +36,7 @@ const RecipeCardList: React.FC<RecipeCardListProps> = ({
   return (
     <div className={classes.list}>
       {recipes.map((recipe) => (
-        <RecipeCard key={recipe.uuid} recipe={recipe} onClick={onRecipeClick} />
+        <RecipeCard key={recipe.id} recipe={recipe} onClick={onRecipeClick} />
       ))}
     </div>
   );

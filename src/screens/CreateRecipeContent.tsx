@@ -9,12 +9,10 @@ import { createRecipe } from '~/state/recipes/actions';
 
 const CreateRecipeContent: React.FC = () => {
   const dispatch = useDispatch();
-  const {
-    user: { sub }
-  } = useUser();
+  const { user } = useUser();
 
   const onSubmit = (data): void => {
-    dispatch(createRecipe({ ...data, author: sub }));
+    dispatch(createRecipe({ ...data, author: user?.sub }));
   };
 
   const [imageSrc, setImageSrc] = useState('');

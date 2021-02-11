@@ -5,7 +5,7 @@ import getConfig from 'next/config';
 import * as types from './types';
 
 const {
-  publicRuntimeConfig: { apiBase }
+  publicRuntimeConfig: { portalBase }
 } = getConfig();
 
 export const getPublicRecipes = () => async (
@@ -14,7 +14,7 @@ export const getPublicRecipes = () => async (
   try {
     const {
       data: { data }
-    } = await axios.get(`${apiBase}/recipes`);
+    } = await axios.get(`${portalBase}/api/recipes/public`);
 
     dispatch({
       type: types.GET_PUBLIC_RECIPES_SUCCESS,
@@ -38,7 +38,7 @@ export const createRecipe = (recipe: CreateRecipePayload) => async (
   try {
     const {
       data: { data }
-    } = await axios.post('/api/recipes', recipe);
+    } = await axios.post(`${portalBase}/api/recipes`, recipe);
 
     dispatch({
       type: types.CREATE_RECIPE_SUCCESS,

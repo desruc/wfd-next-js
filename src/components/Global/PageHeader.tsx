@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
@@ -14,7 +14,7 @@ const useStyles = makeStyles({
 
 interface PageHeaderProps {
   title: string;
-  headerAction?: React.FC;
+  headerAction?: ReactElement;
 }
 
 const PageHeader: React.FC<PageHeaderProps> = ({
@@ -29,8 +29,8 @@ const PageHeader: React.FC<PageHeaderProps> = ({
         {title}
       </Typography>
       <Box>
+        {HeaderAction}
         <UserMenu />
-        {HeaderAction && HeaderAction}
       </Box>
     </Box>
   );

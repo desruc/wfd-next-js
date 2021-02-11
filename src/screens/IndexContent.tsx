@@ -1,27 +1,28 @@
 import React from 'react';
-import getConfig from 'next/config';
-
-import Button from '@material-ui/core/Button';
+import { useRouter } from 'next/router';
+import { useSelector } from 'react-redux';
 
 import PageHeader from '~/components/Global/PageHeader';
+import Button from '~/components/Inputs/Button';
+import RecipeCardList from '~/components/Recipes/RecipeCardList';
 
-const { publicRuntimeConfig } = getConfig();
+const IndexContent: React.FC = () => {
+  const router = useRouter();
 
-interface IndexProps {
-  serverGreeting: string;
-}
+  const onCreateRecipe = () => router.push('/create-recipe');
 
-const IndexContent: React.FC<IndexProps> = (props) => {
-  const { serverGreeting } = props;
+  const recipes = useSelector((state) => state.server.recipes.publicRecipes);
+
+  const headerAction = (
+    <Button variant="contained" color="secondary" onClick={onCreateRecipe}>
+      Create recipe
+    </Button>
+  );
 
   return (
     <div>
-      <PageHeader title="WFD" />
-      <h1>{serverGreeting}</h1>
-      <h1>{publicRuntimeConfig.greeting}</h1>
-      <Button color="secondary" variant="contained">
-        Material-UI Button
-      </Button>
+      <PageHeader title="Recipes" headerAction={headerAction} />
+      <RecipeCardList recipes={recipes} />
     </div>
   );
 };
