@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ApiErrors } from 'types';
+import { ApiErrors } from 'wfd';
 
 import { Controller } from 'react-hook-form';
 

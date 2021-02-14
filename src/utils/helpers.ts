@@ -1,7 +1,3 @@
-interface AnyObject {
-  [key: string]: string | number | boolean;
-}
-
 /**
  * Truncates a string with '...'
  * @param str the string to truncate
@@ -20,10 +16,10 @@ export function truncateString(str: string, num: number): string {
  * @param oldArray The old array of objects
  */
 export const mergeArray = (
-  oldArray: AnyObject[],
-  newArray: AnyObject[],
+  oldArray: Array<unknown>,
+  newArray: Array<unknown>,
   key = 'id'
-): AnyObject[] => {
+): Array<any> => {
   const oldArrayWithUpdatedValues = oldArray.map((e) => {
     const updatedElement = newArray.find((n) => n[key] === e[key]);
     if (updatedElement) return updatedElement;

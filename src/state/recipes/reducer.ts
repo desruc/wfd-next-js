@@ -1,22 +1,12 @@
 import { AnyAction } from 'redux';
 
+import { RecipeSubstate } from 'wfd';
+
 import { mergeArray } from '~/utils/helpers';
 
 import * as types from './types';
 
-interface AnyObject {
-  [key: string]: string | number | boolean;
-}
-
-export interface RecipeSubState {
-  publicRecipesLoading: boolean;
-  publicRecipes: AnyObject[];
-  recipeSaving: boolean;
-  authUserRecipes: AnyObject[];
-  recipeLoading: boolean;
-}
-
-export const initialState: RecipeSubState = {
+export const initialRecipeSubstate: RecipeSubstate = {
   publicRecipesLoading: false,
   publicRecipes: [],
   recipeSaving: false,
@@ -25,9 +15,9 @@ export const initialState: RecipeSubState = {
 };
 
 const recipesReducer = (
-  state = initialState,
+  state = initialRecipeSubstate,
   action: AnyAction
-): RecipeSubState => {
+): RecipeSubstate => {
   switch (action.type) {
     case types.GET_PUBLIC_RECIPES_LOADING_STATE:
       return {

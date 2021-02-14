@@ -1,6 +1,7 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
+import { State } from 'wfd';
 
 import RecipeHero from '~/components/Recipes/RecipeHero';
 import RecipeMeta from '~/components/Recipes/RecipeMeta';
@@ -10,8 +11,8 @@ const ViewRecipeContent: React.FC = () => {
     query: { recipeId }
   } = useRouter();
 
-  const recipe = useSelector((state) =>
-    state.server.recipes.publicRecipes.find((r) => r.id === recipeId)
+  const recipe = useSelector((state: State) =>
+    state.recipes.publicRecipes.find((r) => r.id === recipeId)
   );
 
   return (
@@ -19,7 +20,7 @@ const ViewRecipeContent: React.FC = () => {
       <RecipeHero
         image={recipe?.image}
         title={recipe?.title}
-        description={recipe?.descript}
+        description={recipe?.description}
       />
       <RecipeMeta />
     </div>

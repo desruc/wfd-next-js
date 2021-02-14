@@ -77,6 +77,7 @@ const StarRating: React.FC<StarRatingProps> = ({
           ) {
             return (
               <StarRoundedIcon
+                key={`star-${idx + 1}`}
                 onMouseEnter={() => onMouseOver(idx)}
                 onMouseLeave={onMouseLeave}
                 className={iconClass}
@@ -89,6 +90,7 @@ const StarRating: React.FC<StarRatingProps> = ({
           }
           return (
             <StarBorderRoundedIcon
+              key={`star-${idx + 1}`}
               onMouseEnter={() => onMouseOver(idx)}
               onMouseLeave={onMouseLeave}
               className={iconClass}

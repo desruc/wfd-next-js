@@ -1,4 +1,5 @@
 import { AnyAction } from 'redux';
+import { AppSubstate } from 'wfd';
 
 import * as types from './types';
 
@@ -8,17 +9,15 @@ const prefersDarkMode = process.browser
     window.matchMedia('(prefers-color-scheme: dark)').matches
   : false;
 
-export interface AppSubState {
-  appBootstrapComplete: boolean;
-  colorMode: string;
-}
-
-export const initialState: AppSubState = {
+export const initialAppSubstate: AppSubstate = {
   appBootstrapComplete: false,
   colorMode: prefersDarkMode ? 'dark' : 'light'
 };
 
-const appReducer = (state = initialState, action: AnyAction): AppSubState => {
+const appReducer = (
+  state = initialAppSubstate,
+  action: AnyAction
+): AppSubstate => {
   switch (action.type) {
     case types.APP_BOOTSTRAP_COMPLETE_STATE:
       return {

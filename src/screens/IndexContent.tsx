@@ -1,6 +1,7 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
+import { State } from 'wfd';
 
 import PageHeader from '~/components/Global/PageHeader';
 import Button from '~/components/Inputs/Button';
@@ -11,7 +12,7 @@ const IndexContent: React.FC = () => {
 
   const onCreateRecipe = () => router.push('/create-recipe');
 
-  const recipes = useSelector((state) => state.server.recipes.publicRecipes);
+  const recipes = useSelector((state: State) => state.recipes.publicRecipes);
 
   const headerAction = (
     <Button variant="contained" color="secondary" onClick={onCreateRecipe}>
