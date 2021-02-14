@@ -24,7 +24,7 @@ interface Recipe {
 
 interface RecipeCardListProps {
   recipes?: Recipe[];
-  onRecipeClick?: () => void;
+  onRecipeClick?: (recipe: Recipe) => void;
 }
 
 const RecipeCardList: React.FC<RecipeCardListProps> = ({

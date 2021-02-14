@@ -19,10 +19,13 @@ const IndexContent: React.FC = () => {
     </Button>
   );
 
+  const onRecipeClick = ({ id: recipeId }) =>
+    router.push(`/recipe/${recipeId}`);
+
   return (
     <div>
       <PageHeader title="Recipes" headerAction={headerAction} />
-      <RecipeCardList recipes={recipes} />
+      <RecipeCardList recipes={recipes} onRecipeClick={onRecipeClick} />
     </div>
   );
 };
