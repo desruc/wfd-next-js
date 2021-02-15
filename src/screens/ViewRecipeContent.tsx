@@ -6,13 +6,15 @@ import { State } from 'wfd';
 import RecipeHero from '~/components/Recipes/RecipeHero';
 import RecipeMeta from '~/components/Recipes/RecipeMeta';
 
+import { selectRecipe } from '~/state/recipes/selectors';
+
 const ViewRecipeContent: React.FC = () => {
   const {
     query: { recipeId }
   } = useRouter();
 
   const recipe = useSelector((state: State) =>
-    state.recipes.publicRecipes.find((r) => r.id === recipeId)
+    selectRecipe(state, recipeId as string)
   );
 
   return (

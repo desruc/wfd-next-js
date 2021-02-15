@@ -1,7 +1,6 @@
-import { ClientState } from '~/state/rootReducer';
+import { State } from 'wfd';
 
-export const selectAppBootstrapComplete = (state: ClientState): boolean =>
+export const selectAppBootstrapComplete = (state: State): boolean =>
   state.app.appBootstrapComplete;
 
-export const selectColorMode = (state: ClientState): string =>
-  state.app.colorMode;
+export const selectColorMode = (state: State): string => state.app.colorMode;
