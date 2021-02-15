@@ -10,6 +10,8 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 
+import Navigation from '~/components/Global/Navigation';
+
 import { wrapper } from '~/state/index';
 
 import theme from '~/theme';
@@ -40,6 +42,7 @@ export default wrapper.withRedux(function App(props: AppProps): JSX.Element {
         <CssBaseline />
         <UserProvider user={user}>
           <Box display="flex">
+            <Navigation />
             <Box
               flexGrow={1}
               overflow="hidden"
