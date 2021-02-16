@@ -1,21 +1,18 @@
 import React from 'react';
+import useSWR from 'swr';
 import { useRouter } from 'next/router';
-import { useSelector } from 'react-redux';
-import { State } from 'wfd';
 
 import RecipeHero from '~/components/Recipes/RecipeHero';
 import RecipeMeta from '~/components/Recipes/RecipeMeta';
-
-import { selectRecipe } from '~/state/recipes/selectors';
 
 const ViewRecipeContent: React.FC = () => {
   const {
     query: { recipeId }
   } = useRouter();
 
-  const recipe = useSelector((state: State) =>
-    selectRecipe(state, recipeId as string)
-  );
+  const { data } = useSWR(`/api/recipes/${recipeId}`);
+
+  const recipe = data?.data;
 
   return (
     <div>

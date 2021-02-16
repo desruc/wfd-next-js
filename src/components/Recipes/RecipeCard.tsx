@@ -28,9 +28,6 @@ const useStyles = makeStyles((theme) => ({
   media: {
     height: 150
   },
-  bgContain: {
-    backgroundSize: 'contain'
-  },
   description: {
     fontSize: '0.875rem',
     fontWeight: 300
@@ -85,11 +82,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({
           onMouseLeave={onMouseLeave}
         >
           <Card className={classes.root} elevation={3}>
-            <CardMedia
-              className={classes.media}
-              image={computedImage}
-              classes={{ root: !image && classes.bgContain }}
-            />
+            <CardMedia className={classes.media} image={computedImage} />
             <CardContent>
               <Typography noWrap gutterBottom variant="h5" component="h2">
                 {title}

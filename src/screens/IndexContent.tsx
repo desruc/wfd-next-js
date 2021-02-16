@@ -1,23 +1,19 @@
 import React from 'react';
 import { useRouter } from 'next/router';
-import { useSelector } from 'react-redux';
 import { useUser } from '@auth0/nextjs-auth0';
-
-import { State } from 'wfd';
+import useSWR from 'swr';
 
 import PageHeader from '~/components/Global/PageHeader';
 import Button from '~/components/Inputs/Button';
 import RecipeCardList from '~/components/Recipes/RecipeCardList';
 
-import { selectPublicRecipes } from '~/state/recipes/selectors';
-
 const IndexContent: React.FC = () => {
   const router = useRouter();
   const { user } = useUser();
 
-  const onCreateRecipe = () => router.push('/create-recipe');
+  const { data } = useSWR('/api/recipes/public');
 
-  const recipes = useSelector((state: State) => selectPublicRecipes(state));
+  const onCreateRecipe = () => router.push('/create-recipe');
 
   const headerAction = (
     <>
@@ -35,7 +31,7 @@ const IndexContent: React.FC = () => {
   return (
     <div>
       <PageHeader title="Recipes" headerAction={headerAction} />
-      <RecipeCardList recipes={recipes} onRecipeClick={onRecipeClick} />
+      <RecipeCardList recipes={data?.data} onRecipeClick={onRecipeClick} />
     </div>
   );
 };

@@ -8,7 +8,7 @@ const {
 } = getConfig();
 
 export default async function publicRecipes(
-  req: NextApiRequest,
+  _req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> {
   try {
