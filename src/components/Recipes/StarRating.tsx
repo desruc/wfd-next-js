@@ -18,14 +18,14 @@ const useStyles = makeStyles((theme) => ({
   rating: {
     fontSize: 10,
     fontWeight: 300,
-    color: theme.palette.common.black
+    color: theme.palette.text.primary
   },
   pointer: {
     cursor: 'pointer'
   },
   userRating: {
     marginLeft: 5,
-    color: theme.palette.common.black,
+    color: theme.palette.text.primary,
     fontSize: 10,
     fontWeight: 300
   }
@@ -48,7 +48,7 @@ const StarRating: React.FC<StarRatingProps> = ({
 
   const [hoverIdx, setHoverIdx] = useState(null);
 
-  const onMouseOver = (idx) => {
+  const onMouseOver = (idx: number) => {
     if (!readOnly) setHoverIdx(idx);
   };
 

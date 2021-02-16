@@ -4,8 +4,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 
-import UserMenu from '~/components/Global/UserMenu';
-
 const useStyles = makeStyles({
   title: {
     flex: 1
@@ -28,10 +26,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({
       <Typography variant="h1" color="textPrimary" className={classes.title}>
         {title}
       </Typography>
-      <Box>
-        {HeaderAction}
-        <UserMenu />
-      </Box>
+      <Box>{HeaderAction}</Box>
     </Box>
   );
 };

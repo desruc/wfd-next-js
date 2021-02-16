@@ -33,20 +33,22 @@ interface RecipeMetaProps {
   };
   prepTime?: string;
   cookingTime?: string;
+  readOnly?: boolean;
 }
 
 const RecipeMeta: React.FC<RecipeMetaProps> = ({
   rating,
   user,
   prepTime,
-  cookingTime
+  cookingTime,
+  readOnly
 }: RecipeMetaProps) => {
   const classes = useStyles();
 
   return (
     <Grid container spacing={2}>
       <Grid item xs={6} sm={3}>
-        <StarRating rating={rating} />
+        <StarRating rating={rating} readOnly={readOnly} />
       </Grid>
       {user && (
         <Grid item xs={6} sm={3}>
@@ -82,7 +84,8 @@ RecipeMeta.defaultProps = {
   rating: 0,
   user: null,
   prepTime: '',
-  cookingTime: ''
+  cookingTime: '',
+  readOnly: false
 };
 
 export default RecipeMeta;
