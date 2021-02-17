@@ -1,18 +1,22 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { useUser } from '@auth0/nextjs-auth0';
+import axios from 'axios';
 
 import PageHeader from '~/components/Global/PageHeader';
 import RecipeForm from '~/components/Recipes/RecipeForm';
 
-import { createRecipe } from '~/state/recipes/actions';
+interface RecipePayload {
+  title: string;
+  description: string;
+  time: string;
+  public: boolean;
+}
 
 const CreateRecipeContent: React.FC = () => {
-  const dispatch = useDispatch();
   const { user } = useUser();
 
-  const onSubmit = (data): void => {
-    dispatch(createRecipe({ ...data, author: user?.sub }));
+  const onSubmit = (data: RecipePayload): void => {
+    axios.post('/api/recipes/create', { ...data, author: user?.sub });
   };
 
   const [imageSrc, setImageSrc] = useState('');

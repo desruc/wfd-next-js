@@ -12,12 +12,12 @@ import Container from '@material-ui/core/Container';
 
 import Navigation from '~/components/Global/Navigation';
 
-import { wrapper } from '~/state/index';
-
 import theme from '~/theme';
 
-export default wrapper.withRedux(function App(props: AppProps): JSX.Element {
+export default function App(props: AppProps): JSX.Element {
   const { Component, pageProps } = props;
+
+  const { user } = pageProps;
 
   React.useEffect(() => {
     // Remove the server-side injected CSS.
@@ -26,8 +26,6 @@ export default wrapper.withRedux(function App(props: AppProps): JSX.Element {
       jssStyles.parentElement.removeChild(jssStyles);
     }
   }, []);
-
-  const { user } = pageProps;
 
   return (
     <>
@@ -58,4 +56,4 @@ export default wrapper.withRedux(function App(props: AppProps): JSX.Element {
       </ThemeProvider>
     </>
   );
-});
+}

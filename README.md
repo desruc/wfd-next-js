@@ -5,7 +5,6 @@
 - Next.js
 - Typescript
 - Material-UI
-- Redux w/ Redux Thunk
 
 ## Development
 
