@@ -23,6 +23,8 @@ module.exports = {
     'react/jsx-one-expression-per-line': 0,
     'react/prop-types': 0,
     'react/jsx-filename-extension': [1, { extensions: ['.tsx'] }],
+    'no-use-before-define': 'off',
+    '@typescript-eslint/no-use-before-define': ['error'],
     'jsx-a11y/anchor-is-valid': [
       'error',
       {

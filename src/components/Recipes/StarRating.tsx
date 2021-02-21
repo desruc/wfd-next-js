@@ -56,7 +56,7 @@ const StarRating: React.FC<StarRatingProps> = ({
     if (!readOnly) setHoverIdx(null);
   };
 
-  const handleClick = (stars) => {
+  const handleClick = (stars: number) => {
     if (onChange && !readOnly) onChange(stars);
   };
 
@@ -81,7 +81,7 @@ const StarRating: React.FC<StarRatingProps> = ({
                 onMouseEnter={() => onMouseOver(idx)}
                 onMouseLeave={onMouseLeave}
                 className={iconClass}
-                onClick={handleClick}
+                onClick={() => handleClick(idx + 1)}
                 titleAccess={
                   readOnly ? `${computedRating} stars` : `${idx + 1} stars`
                 }
@@ -94,14 +94,16 @@ const StarRating: React.FC<StarRatingProps> = ({
               onMouseEnter={() => onMouseOver(idx)}
               onMouseLeave={onMouseLeave}
               className={iconClass}
-              onClick={handleClick}
+              onClick={() => handleClick(idx + 1)}
               titleAccess={
                 readOnly ? `${computedRating} stars` : `${idx + 1} stars`
               }
             />
           );
         })}
-        <Typography className={classes.rating}>{`(${rating})`}</Typography>
+        {rating && (
+          <Typography className={classes.rating}>{`(${rating})`}</Typography>
+        )}
       </div>
       {userRating && (
         <Typography className={classes.userRating}>
