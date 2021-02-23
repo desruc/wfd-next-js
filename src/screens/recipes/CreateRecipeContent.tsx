@@ -4,6 +4,7 @@ import axios from 'axios';
 
 import PageHeader from '~/components/Global/PageHeader';
 import RecipeForm from '~/components/Recipes/RecipeForm';
+import Snackbar from '~/components/Global/Snackbar';
 
 interface RecipePayload {
   title: string;
@@ -15,12 +16,31 @@ interface RecipePayload {
 const CreateRecipeContent: React.FC = () => {
   const { user } = useUser();
 
+  const [snackbarProps, setSnackbarProps] = useState({
+    open: false,
+    variant: 'success',
+    content: ''
+  });
+
+  const closeSnackbar = () => setSnackbarProps((s) => ({ ...s, open: false }));
+
   const onSubmit = (data: RecipePayload): void => {
-    axios.post('/api/recipes/create', { ...data, author: user?.sub });
+    axios
+      .post('/api/recipes/create', { ...data, author: user?.sub })
+      .then(() => {
+        setSnackbarProps((p) => ({
+          ...p,
+          open: true,
+          content: 'Recipe created successfully'
+        }));
+      });
   };
 
   const [imageSrc, setImageSrc] = useState('');
+
   const onImageChange = (src: string) => setImageSrc(src);
+
+  const { open: snackbarOpen, variant, content } = snackbarProps;
 
   return (
     <div>
@@ -29,6 +49,12 @@ const CreateRecipeContent: React.FC = () => {
         onSubmit={onSubmit}
         imageSrc={imageSrc}
         onImageSave={onImageChange}
+      />
+      <Snackbar
+        open={snackbarOpen}
+        variant={variant}
+        content={content}
+        handleClose={closeSnackbar}
       />
     </div>
   );

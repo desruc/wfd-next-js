@@ -18,7 +18,7 @@ import ImageInput from '~/components/Inputs/ImageInput';
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(4),
-    padding: theme.spacing(2)
+    padding: theme.spacing(4)
   },
   checkboxContainer: {
     textAlign: 'center'

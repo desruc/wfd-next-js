@@ -13,7 +13,7 @@ const IndexContent: React.FC = () => {
 
   const { data } = useSWR('/api/recipes/public');
 
-  const onCreateRecipe = () => router.push('/create-recipe');
+  const onCreateRecipe = () => router.push('/recipes/create');
 
   const headerAction = (
     <>
@@ -26,7 +26,7 @@ const IndexContent: React.FC = () => {
   );
 
   const onRecipeClick = ({ id: recipeId }) =>
-    router.push(`/recipe/${recipeId}`);
+    router.push(`/recipes/${recipeId}`);
 
   return (
     <div>
