@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Link from 'next/link';
+
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -27,9 +29,9 @@ const useStyles = makeStyles((theme) => ({
 
 interface RecipeMetaProps {
   rating?: number;
-  user?: {
-    firstName: string;
-    lastName: string;
+  author: {
+    id: string;
+    fullName: string;
   };
   prepTime?: string;
   cookingTime?: string;
@@ -40,7 +42,7 @@ interface RecipeMetaProps {
 
 const RecipeMeta: React.FC<RecipeMetaProps> = ({
   rating,
-  user,
+  author,
   prepTime,
   cookingTime,
   onSubmitRating,
@@ -59,13 +61,15 @@ const RecipeMeta: React.FC<RecipeMetaProps> = ({
           userRating={userRating}
         />
       </Grid>
-      {user && (
+      {author && (
         <Grid item xs={6} sm={3}>
           <Typography className={classes.flexCenter}>
-            <Avatar className={classes.avatar} />
-            <span className={classes.text}>
-              {`${user?.firstName} ${user?.lastName}`}
-            </span>
+            <Link href={`/recipes/u/${author.id}`}>
+              <Avatar className={classes.avatar} />
+            </Link>
+            <Link href={`/recipes/u/${author.id}`}>
+              <span className={classes.text}>{author?.fullName}</span>
+            </Link>
           </Typography>
         </Grid>
       )}
@@ -91,7 +95,6 @@ const RecipeMeta: React.FC<RecipeMetaProps> = ({
 
 RecipeMeta.defaultProps = {
   rating: 0,
-  user: null,
   prepTime: '',
   cookingTime: '',
   readOnly: false,

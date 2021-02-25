@@ -44,6 +44,7 @@ const ViewRecipeContent: React.FC = () => {
         rating={recipe?.rating}
         onSubmitRating={onSubmitRating}
         userRating={computedUserRating}
+        author={recipe?.author}
       />
     </div>
   );
