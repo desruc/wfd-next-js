@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'hidden',
     width: '100%'
   },
-  inner: (props: { color: string; image: string }) => ({
+  inner: (props: { color: string; image: string; blend: boolean }) => ({
     position: 'absolute',
     height: 500,
     width: '100%',
@@ -24,9 +24,11 @@ const useStyles = makeStyles((theme) => ({
       height: '100%',
       zIndex: 1,
       mixBlendMode: 'overlay',
-      background: `linear-gradient(to top, rgba(0,0,0,0) 0%, ${
-        props.color || theme.palette.secondary
-      } 100%)`
+      background: props.blend
+        ? `linear-gradient(to top, rgba(0,0,0,0) 0%, ${
+            props.color || theme.palette.secondary
+          } 100%)`
+        : 'rgba(0,0,0,0.4)'
     },
     '&:after': {
       content: "''",
@@ -36,19 +38,21 @@ const useStyles = makeStyles((theme) => ({
       top: 0,
       left: 0,
       backfaceVisibility: 'hidden',
-      background: `linear-gradient(to bottom, ${fade(
-        theme.palette.background.default,
-        0.4
-      )} 0%, ${theme.palette.background.default} 100%),
+      background: props.blend
+        ? `linear-gradient(to bottom, ${fade(
+            theme.palette.background.default,
+            0.4
+          )} 0%, ${theme.palette.background.default} 100%),
       linear-gradient(135deg, ${fade(
         theme.palette.background.default,
         0.4
       )} 40%, ${
-        theme.palette.background.default
-      } 100%), linear-gradient(-135deg, ${fade(
-        theme.palette.background.default,
-        0.4
-      )} 40%, ${theme.palette.background.default} 100%)`
+            theme.palette.background.default
+          } 100%), linear-gradient(-135deg, ${fade(
+            theme.palette.background.default,
+            0.4
+          )} 40%, ${theme.palette.background.default} 100%)`
+        : 'rgba(0,0,0,0.3)'
     }
   }),
   image: {
@@ -71,10 +75,16 @@ interface HeroProps {
   image?: string;
   color?: string;
   children?: React.ReactNode;
+  blend?: boolean;
 }
 
-const Hero: React.FC<HeroProps> = ({ image, color, children }: HeroProps) => {
-  const classes = useStyles({ color, image });
+const Hero: React.FC<HeroProps> = ({
+  image,
+  color,
+  children,
+  blend
+}: HeroProps) => {
+  const classes = useStyles({ color, image, blend });
 
   const computedImage = image || '/images/recipe-placeholder.png';
 
@@ -95,7 +105,8 @@ const Hero: React.FC<HeroProps> = ({ image, color, children }: HeroProps) => {
 Hero.defaultProps = {
   image: '',
   color: '',
-  children: null
+  children: null,
+  blend: false
 };
 
 export default Hero;

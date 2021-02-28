@@ -26,7 +26,7 @@ import UserMenu from '~/components/Global/UserMenu';
 const menuRoutes = [
   {
     key: 'recipes',
-    label: 'Public Recipes',
+    label: 'Browse',
     to: '/',
     icon: RestaurantRoundedIcon,
     children: []

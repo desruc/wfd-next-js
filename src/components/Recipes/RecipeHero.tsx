@@ -36,7 +36,7 @@ const RecipeHero: React.FC<RecipeHeroProps> = ({
   });
 
   return (
-    <Hero image={image}>
+    <Hero image={image} blend>
       <div className={classes.flex}>
         <animated.div style={titleProps}>
           <Typography variant="h1">{title}</Typography>
