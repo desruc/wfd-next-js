@@ -18,7 +18,13 @@ const useStyles = makeStyles((theme) => ({
     padding: `${theme.spacing(6)}px ${theme.spacing(18)}px`,
     height: '100%',
     display: 'flex',
-    alignItems: 'center'
+    alignItems: 'center',
+    [theme.breakpoints.down('md')]: {
+      padding: theme.spacing(2)
+    },
+    [theme.breakpoints.down('xs')]: {
+      justifyContent: 'center'
+    }
   },
   card: {
     width: 320,
@@ -38,7 +44,7 @@ interface HomeHeroProps {
 const HomeHero: React.FC<HomeHeroProps> = ({ recipe }: HomeHeroProps) => {
   const classes = useStyles();
 
-  const { title, description, id } = recipe;
+  const { title, description, id } = recipe || {};
 
   const recipeLink = `/recipes/${id}`;
 
@@ -48,12 +54,16 @@ const HomeHero: React.FC<HomeHeroProps> = ({ recipe }: HomeHeroProps) => {
         <Link href={recipeLink}>
           <Card className={classes.card} title="Go to recipe">
             <CardContent>
-              <Typography noWrap gutterBottom variant="h5" component="h2">
-                {title}
-              </Typography>
-              <Typography className={classes.description}>
-                {truncateString(description, 125)}
-              </Typography>
+              {title && (
+                <Typography noWrap gutterBottom variant="h5" component="h2">
+                  {title}
+                </Typography>
+              )}
+              {description && (
+                <Typography className={classes.description}>
+                  {truncateString(description, 125)}
+                </Typography>
+              )}
             </CardContent>
           </Card>
         </Link>

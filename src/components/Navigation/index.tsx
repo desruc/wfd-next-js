@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import cn from 'classnames';
+import { useUser } from '@auth0/nextjs-auth0';
 
 import Link from 'next/link';
 
@@ -20,8 +21,11 @@ import ListItemText from '@material-ui/core/ListItemText';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import RestaurantRoundedIcon from '@material-ui/icons/RestaurantRounded';
+import FaceIcon from '@material-ui/icons/Face';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 
-import UserMenu from '~/components/Global/UserMenu';
+import UserMenu from '~/components/Navigation/UserMenu';
+import AuthMenu from '~/components/Navigation/AuthMenu';
 
 const menuRoutes = [
   {
@@ -29,6 +33,23 @@ const menuRoutes = [
     label: 'Browse',
     to: '/',
     icon: RestaurantRoundedIcon,
+    desktop: true,
+    children: []
+  },
+  {
+    key: 'your-recipes',
+    label: 'Your recipes',
+    to: '/recipes/me',
+    icon: FaceIcon,
+    desktop: false,
+    children: []
+  },
+  {
+    key: 'create-recipe',
+    label: 'Create recipe',
+    to: '/recipes/create',
+    icon: AddCircleOutlineIcon,
+    desktop: false,
     children: []
   }
 ];
@@ -103,7 +124,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Navigation: React.FC = () => {
+  const { user } = useUser();
+
   const classes = useStyles();
+
   const { pathname } = useRouter();
 
   const [open, setOpen] = useState(false);
@@ -136,16 +160,19 @@ const Navigation: React.FC = () => {
               wfd
             </Typography>
             <Hidden xsDown>
-              {menuRoutes.map(({ key, label, to }) => (
-                <div key={key} className={classes.desktopLinkWrap}>
-                  <Link href={to}>
-                    <a className={classes.desktopLink}>{label}</a>
-                  </Link>
-                </div>
-              ))}
+              {menuRoutes
+                .filter(({ desktop }) => desktop)
+                .map(({ key, label, to }) => (
+                  <div key={key} className={classes.desktopLinkWrap}>
+                    <Link href={to}>
+                      <a className={classes.desktopLink}>{label}</a>
+                    </Link>
+                  </div>
+                ))}
+              {user && <UserMenu />}
             </Hidden>
           </Box>
-          <UserMenu />
+          <AuthMenu />
         </Toolbar>
       </AppBar>
       <Hidden smUp>

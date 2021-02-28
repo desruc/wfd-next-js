@@ -43,6 +43,11 @@ const UserMenu: React.FC = () => {
       isAuthenticated: false
     },
     {
+      label: 'Profile',
+      link: '/account-settings',
+      isAuthenticated: true
+    },
+    {
       label: 'Log out',
       link: '/api/auth/logout',
       isAuthenticated: true
