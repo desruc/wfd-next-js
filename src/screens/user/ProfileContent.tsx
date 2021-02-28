@@ -1,19 +1,24 @@
 import React, { useState } from 'react';
-import useSWR from 'swr';
 import axios from 'axios';
+
+import { User } from 'wfd';
 
 import PageHeader from '~/components/Global/PageHeader';
 import ProfileForm from '~/components/Users/ProfileForm';
 import Snackbar from '~/components/Global/Snackbar';
+
+interface ProfileContentProps {
+  user: User;
+}
 
 interface UserPayload {
   firstName: string;
   lastName: string;
 }
 
-const ProfileContent: React.FC = () => {
-  const { data: userResponse } = useSWR('/api/user');
-
+const ProfileContent: React.FC<ProfileContentProps> = ({
+  user
+}: ProfileContentProps) => {
   const [snackbarProps, setSnackbarProps] = useState({
     open: false,
     variant: 'success',
@@ -38,8 +43,8 @@ const ProfileContent: React.FC = () => {
       <PageHeader title="Profile" />
       <ProfileForm
         onSubmit={onSubmit}
-        firstName={userResponse?.data?.firstName}
-        lastName={userResponse?.data?.lastName}
+        firstName={user?.firstName || ''}
+        lastName={user?.lastName || ''}
         saving={saving}
       />
       <Snackbar

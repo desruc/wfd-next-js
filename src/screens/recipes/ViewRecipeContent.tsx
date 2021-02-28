@@ -1,36 +1,32 @@
 import React, { useState } from 'react';
-import useSWR from 'swr';
-import { useRouter } from 'next/router';
 import axios from 'axios';
 import { useUser } from '@auth0/nextjs-auth0';
+
+import { Recipe, RecipeRating } from 'wfd';
 
 import RecipeHero from '~/components/Recipes/RecipeHero';
 import RecipeMeta from '~/components/Recipes/RecipeMeta';
 
-const ViewRecipeContent: React.FC = () => {
-  const {
-    query: { recipeId }
-  } = useRouter();
+interface ViewRecipeContentProps {
+  recipe: Recipe;
+  authUserRating: RecipeRating;
+}
 
-  const { data: recipeResponse } = useSWR(`/api/recipes/${recipeId}`);
-
-  const { data: ratingResponse } = useSWR(`/api/recipes/rating/${recipeId}`);
-
+const ViewRecipeContent: React.FC<ViewRecipeContentProps> = ({
+  recipe,
+  authUserRating
+}: ViewRecipeContentProps) => {
   const { user } = useUser();
 
   const [newRating, setNewRating] = useState(null);
 
   const onSubmitRating = (score: number) => {
     axios
-      .post(`/api/recipes/rating/${recipeId}`, { score })
+      .post(`/api/recipes/rating/${recipe?.id}`, { score })
       .then((res) => setNewRating(res.data.data.score));
   };
 
-  const recipe = recipeResponse?.data;
-
-  const userRating = ratingResponse?.data?.score;
-
-  const computedUserRating = newRating || userRating;
+  const computedUserRating = newRating || authUserRating?.score;
 
   return (
     <div>

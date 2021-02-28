@@ -7,22 +7,19 @@ export interface Recipe {
   title: string;
   description: string;
   image: string;
+  rating: number;
+  author: User;
+  prepTime?: number;
+  cookingTime?: number;
 }
 
-export interface AppSubstate {
-  appBootstrapComplete: boolean;
-  colorMode: string;
+export interface User {
+  id: string;
+  firstName: string;
+  lastName: string;
+  fullName: string;
 }
 
-export interface RecipeSubstate {
-  publicRecipesLoading: boolean;
-  publicRecipes: Recipe[];
-  recipeSaving: boolean;
-  authUserRecipes: Recipe[];
-  recipeLoading: boolean;
-}
-
-export interface State {
-  app: AppSubstate;
-  recipes: RecipeSubstate;
+export interface RecipeRating {
+  score: number;
 }

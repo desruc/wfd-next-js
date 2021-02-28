@@ -1,11 +1,15 @@
 import React from 'react';
-import { NextPage } from 'next';
 import { withPageAuthRequired } from '@auth0/nextjs-auth0';
+import useSWR from 'swr';
+
+import { NextPage } from 'next';
 
 import ProfileContent from '~/screens/user/ProfileContent';
 
 const CreateRecipePage: NextPage = () => {
-  return <ProfileContent />;
+  const { data: userResponse } = useSWR('/api/user');
+
+  return <ProfileContent user={userResponse?.data} />;
 };
 
 export const getServerSideProps = withPageAuthRequired();
