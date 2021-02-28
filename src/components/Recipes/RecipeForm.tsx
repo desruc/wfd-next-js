@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ApiErrors } from 'wfd';
+import { ApiErrors, Recipe } from 'wfd';
 
 import { Controller } from 'react-hook-form';
 
@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 interface RecipeFormProps {
+  recipe?: Recipe;
   onSubmit: (data: { [x: string]: any }) => void;
   saving?: boolean;
   apiErrors?: ApiErrors | null;
@@ -39,6 +40,7 @@ interface RecipeFormProps {
 }
 
 const RecipeForm: React.FC<RecipeFormProps> = ({
+  recipe,
   onSubmit,
   saving,
   apiErrors,
@@ -55,13 +57,14 @@ const RecipeForm: React.FC<RecipeFormProps> = ({
   return (
     <>
       <ImageInput src={imageSrc} onSave={onImageSave} />
-      <Paper className={classes.paper}>
+      <Paper key={recipe?.title} className={classes.paper}>
         <TextInput
           inputRef={register}
           id="title-input"
           label="Title"
           name="title"
           errors={computedErrors}
+          defaultValue={recipe?.title}
         />
         <TextInput
           inputRef={register}
@@ -69,6 +72,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({
           label="Description"
           name="description"
           errors={computedErrors}
+          defaultValue={recipe?.description}
         />
         <TextInput
           inputRef={register}
@@ -77,6 +81,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({
           name="prepTime"
           type="number"
           errors={computedErrors}
+          defaultValue={recipe?.prepTime}
         />
         <TextInput
           inputRef={register}
@@ -85,12 +90,13 @@ const RecipeForm: React.FC<RecipeFormProps> = ({
           name="cookingTime"
           type="number"
           errors={computedErrors}
+          defaultValue={recipe?.cookingTime}
         />
         <div className={classes.checkboxContainer}>
           <Controller
             name="public"
             control={control}
-            defaultValue={false}
+            defaultValue={recipe?.public || false}
             render={({ onChange, value, name, ref }) => (
               <Checkbox
                 inputRef={ref}
@@ -117,6 +123,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({
 };
 
 RecipeForm.defaultProps = {
+  recipe: null,
   saving: false,
   apiErrors: null,
   imageSrc: '/images/recipe-placeholder.png'

@@ -11,6 +11,7 @@ export interface Recipe {
   author: User;
   prepTime?: number;
   cookingTime?: number;
+  public: boolean;
 }
 
 export interface User {
