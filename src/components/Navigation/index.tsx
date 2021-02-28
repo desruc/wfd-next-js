@@ -31,7 +31,7 @@ const menuRoutes = [
   {
     key: 'recipes',
     label: 'Browse',
-    to: '/',
+    to: '/browse',
     icon: RestaurantRoundedIcon,
     desktop: true,
     children: []
@@ -67,7 +67,8 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: `inset 0 -1px 0 0 ${theme.palette.divider}`
   },
   title: {
-    padding: '0rem 0.5rem'
+    padding: '0rem 0.5rem',
+    cursor: 'pointer'
   },
   icon: {
     transition: 'all 0.2s ease-in-out',
@@ -156,9 +157,11 @@ const Navigation: React.FC = () => {
                 {open ? <ChevronLeftIcon /> : <MenuIcon />}
               </IconButton>
             </Hidden>
-            <Typography color="textPrimary" className={classes.title}>
-              wfd
-            </Typography>
+            <Link href="/">
+              <Typography color="textPrimary" className={classes.title}>
+                wfd
+              </Typography>
+            </Link>
             <Hidden xsDown>
               {menuRoutes
                 .filter(({ desktop }) => desktop)
