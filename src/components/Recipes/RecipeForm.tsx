@@ -72,9 +72,18 @@ const RecipeForm: React.FC<RecipeFormProps> = ({
         />
         <TextInput
           inputRef={register}
-          id="time-input"
+          id="prep-time-input"
+          label="Time to prep"
+          name="prepTime"
+          type="number"
+          errors={computedErrors}
+        />
+        <TextInput
+          inputRef={register}
+          id="cooking-time-input"
           label="Time to cook"
-          name="time"
+          name="cookingTime"
+          type="number"
           errors={computedErrors}
         />
         <div className={classes.checkboxContainer}>

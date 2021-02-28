@@ -1,4 +1,5 @@
 import React from 'react';
+import cn from 'classnames';
 
 import Link from 'next/link';
 
@@ -17,13 +18,26 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(0.5),
     fontSize: '0.75rem'
   },
+  author: {
+    width: 'fit-content',
+    textDecoration: 'none',
+    color: theme.palette.text.primary,
+    transition: theme.transitions.create(['color'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen
+    }),
+    '&:hover': {
+      color: theme.palette.secondary.main
+    }
+  },
   flexCenter: {
     display: 'flex',
     alignItems: 'center'
   },
   avatar: {
     height: theme.spacing(3),
-    width: theme.spacing(3)
+    width: theme.spacing(3),
+    marginRight: theme.spacing(1)
   }
 }));
 
@@ -33,8 +47,8 @@ interface RecipeMetaProps {
     id: string;
     fullName: string;
   };
-  prepTime?: string;
-  cookingTime?: string;
+  prepTime?: number;
+  cookingTime: number;
   onSubmitRating?: (num: number) => void;
   userRating?: number;
   readOnly?: boolean;
@@ -51,6 +65,13 @@ const RecipeMeta: React.FC<RecipeMetaProps> = ({
 }: RecipeMetaProps) => {
   const classes = useStyles();
 
+  const computeTime = (t: number): string =>
+    t > 60 ? `${(t / 60).toFixed(2)}h` : `${t}m`;
+
+  const computedPrepTime = computeTime(prepTime);
+
+  const computedCookingTime = computeTime(cookingTime);
+
   return (
     <Grid container spacing={2}>
       <Grid item xs={6} sm={3}>
@@ -63,20 +84,21 @@ const RecipeMeta: React.FC<RecipeMetaProps> = ({
       </Grid>
       {author && (
         <Grid item xs={6} sm={3}>
-          <Typography className={classes.flexCenter}>
-            <Link href={`/recipes/u/${author.id}`}>
+          <Link href={`/recipes/u/${author.id}`}>
+            <a
+              className={cn(classes.flexCenter, classes.author)}
+              title="View more by this user"
+            >
               <Avatar className={classes.avatar} />
-            </Link>
-            <Link href={`/recipes/u/${author.id}`}>
               <span className={classes.text}>{author?.fullName}</span>
-            </Link>
-          </Typography>
+            </a>
+          </Link>
         </Grid>
       )}
       {prepTime && (
         <Grid item xs={6} sm={3}>
           <Typography className={classes.flexCenter}>
-            <span className={classes.bold}>{prepTime}</span>
+            <span className={classes.bold}>{computedPrepTime}</span>
             <span className={classes.text}>Prep time</span>
           </Typography>
         </Grid>
@@ -84,7 +106,7 @@ const RecipeMeta: React.FC<RecipeMetaProps> = ({
       {cookingTime && (
         <Grid item xs={6} sm={3}>
           <Typography className={classes.flexCenter}>
-            <span className={classes.bold}>{cookingTime}</span>
+            <span className={classes.bold}>{computedCookingTime}</span>
             <span className={classes.text}>Cooking time</span>
           </Typography>
         </Grid>
@@ -95,8 +117,7 @@ const RecipeMeta: React.FC<RecipeMetaProps> = ({
 
 RecipeMeta.defaultProps = {
   rating: 0,
-  prepTime: '',
-  cookingTime: '',
+  prepTime: 0,
   readOnly: false,
   onSubmitRating: null,
   userRating: null
