@@ -2,16 +2,23 @@ import React from 'react';
 
 import { makeStyles, fade } from '@material-ui/core/styles';
 
+interface UseStyleProps {
+  color: string;
+  image: string;
+  blend: boolean;
+  height: number;
+}
+
 const useStyles = makeStyles((theme) => ({
-  wrap: {
+  wrap: (props: UseStyleProps) => ({
     position: 'relative',
-    height: 500,
+    height: props.height,
     overflow: 'hidden',
     width: '100%'
-  },
-  inner: (props: { color: string; image: string; blend: boolean }) => ({
+  }),
+  inner: (props: UseStyleProps) => ({
     position: 'absolute',
-    height: 500,
+    height: props.height,
     width: '100%',
     top: 0,
     zIndex: 0,
@@ -55,14 +62,14 @@ const useStyles = makeStyles((theme) => ({
         : 'rgba(0,0,0,0.3)'
     }
   }),
-  image: {
-    height: 500,
+  image: (props: UseStyleProps) => ({
+    height: props.height,
     width: '100%',
     position: 'absolute',
     top: 0,
     objectFit: 'cover',
     objectPosition: 'center center'
-  },
+  }),
   children: {
     position: 'relative',
     zIndex: 1,
@@ -76,15 +83,17 @@ interface HeroProps {
   color?: string;
   children?: React.ReactNode;
   blend?: boolean;
+  height?: number;
 }
 
 const Hero: React.FC<HeroProps> = ({
   image,
   color,
   children,
-  blend
+  blend,
+  height
 }: HeroProps) => {
-  const classes = useStyles({ color, image, blend });
+  const classes = useStyles({ color, image, blend, height });
 
   const computedImage = image || '/images/recipe-placeholder.png';
 
@@ -106,7 +115,8 @@ Hero.defaultProps = {
   image: '',
   color: '',
   children: null,
-  blend: false
+  blend: false,
+  height: 500
 };
 
 export default Hero;

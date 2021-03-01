@@ -11,6 +11,13 @@ export function truncateString(str: string, num: number): string {
 }
 
 /**
+ * Converts a number of minutes into a human readable string
+ * @param t number of minutes
+ */
+export const computeTime = (t: number): string =>
+  t > 60 ? `${(t / 60).toFixed(2)}h` : `${t}m`;
+
+/**
  * Merge to arrays of objects - uses the supplied key to check for duplicates
  * @param newArray The new array of objects
  * @param oldArray The old array of objects

@@ -3,11 +3,6 @@ import { useRouter } from 'next/router';
 
 import { Recipe } from 'wfd';
 
-import Link from 'next/link';
-
-import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
-
 import RecipeCardList from '~/components/Recipes/RecipeCardList';
 import HomeHero from '~/components/Home/HomeHero';
 
@@ -26,19 +21,18 @@ const IndexContent: React.FC<IndexProps> = ({ recipes }: IndexProps) => {
   return (
     <div>
       <HomeHero recipe={featuredRecipe} />
-      <Box
-        marginTop={8}
-        marginBottom={2}
-        display="flex"
-        justifyContent="space-between"
-        alignItems="center"
-      >
-        <Typography variant="h4">Recent Recipes</Typography>
-        <Link href="/browse">
-          <a>See more</a>
-        </Link>
-      </Box>
-      <RecipeCardList recipes={recipes} onRecipeClick={onRecipeClick} />
+      <RecipeCardList
+        title="Recent Recipes"
+        link="/browse"
+        recipes={recipes}
+        onRecipeClick={onRecipeClick}
+      />
+      <RecipeCardList
+        title="Popular Recipes"
+        link="/browse"
+        recipes={recipes}
+        onRecipeClick={onRecipeClick}
+      />
     </div>
   );
 };

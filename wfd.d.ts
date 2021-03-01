@@ -13,6 +13,7 @@ export interface Recipe {
   cookingTime?: number;
   public: boolean;
   isAuthor?: boolean;
+  rating: number;
 }
 
 export interface User {

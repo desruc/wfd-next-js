@@ -10,6 +10,8 @@ import Avatar from '@material-ui/core/Avatar';
 
 import StarRating from '~/components/Recipes/StarRating';
 
+import { computeTime } from '~/utils/helpers';
+
 const useStyles = makeStyles((theme) => ({
   bold: {
     fontWeight: 700
@@ -65,9 +67,6 @@ const RecipeMeta: React.FC<RecipeMetaProps> = ({
 }: RecipeMetaProps) => {
   const classes = useStyles();
 
-  const computeTime = (t: number): string =>
-    t > 60 ? `${(t / 60).toFixed(2)}h` : `${t}m`;
-
   const computedPrepTime = computeTime(prepTime);
 
   const computedCookingTime = computeTime(cookingTime);
@@ -77,6 +76,7 @@ const RecipeMeta: React.FC<RecipeMetaProps> = ({
       <Grid item xs={6} sm={3}>
         <StarRating
           rating={rating}
+          showRating
           readOnly={readOnly}
           onChange={onSubmitRating}
           userRating={userRating}

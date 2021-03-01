@@ -1,13 +1,19 @@
 import React from 'react';
 import { animated, useSpring } from 'react-spring';
 
+import { Recipe } from 'wfd';
+
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 
-import { truncateString } from '~/utils/helpers';
+import QueryBuilderIcon from '@material-ui/icons/QueryBuilder';
+
+import StarRating from '~/components/Recipes/StarRating';
+
+import { truncateString, computeTime } from '~/utils/helpers';
 
 const useStyles = makeStyles((theme) => ({
   wrap: {
@@ -31,14 +37,22 @@ const useStyles = makeStyles((theme) => ({
   description: {
     fontSize: '0.875rem',
     fontWeight: 300
+  },
+  noRating: {
+    fontSize: '0.75rem',
+    fontWeight: 300
+  },
+  metaWrap: {
+    display: 'flex',
+    alignItems: 'center',
+    marginTop: theme.spacing(0.5)
+  },
+  meta: {
+    fontSize: '0.875rem',
+    fontWeight: 300,
+    marginLeft: theme.spacing(0.5)
   }
 }));
-
-interface Recipe {
-  image: string;
-  title: string;
-  description: string;
-}
 
 interface RecipeCardProps {
   recipe: Recipe;
@@ -65,7 +79,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({
     if (onClick) onClick(recipe);
   };
 
-  const { image, title, description } = recipe;
+  const { image, title, description, rating, cookingTime } = recipe;
 
   const computedImage = image || '/images/recipe-placeholder.png';
 
@@ -84,12 +98,29 @@ const RecipeCard: React.FC<RecipeCardProps> = ({
           <Card className={classes.root} elevation={3}>
             <CardMedia className={classes.media} image={computedImage} />
             <CardContent>
-              <Typography noWrap gutterBottom variant="h5" component="h2">
-                {title}
-              </Typography>
-              <Typography className={classes.description}>
-                {truncateString(description, 125)}
-              </Typography>
+              <div>
+                <Typography noWrap gutterBottom variant="h5" component="h2">
+                  {title}
+                </Typography>
+                <Typography className={classes.description}>
+                  {truncateString(description, 125)}
+                </Typography>
+              </div>
+              <div>
+                {rating ? (
+                  <StarRating readOnly small rating={4} />
+                ) : (
+                  <Typography className={classes.noRating}>
+                    No rating yet
+                  </Typography>
+                )}
+                <div className={classes.metaWrap}>
+                  <QueryBuilderIcon />
+                  <Typography className={classes.meta}>
+                    {computeTime(cookingTime)}
+                  </Typography>
+                </div>
+              </div>
             </CardContent>
           </Card>
         </animated.div>

@@ -28,6 +28,10 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.primary,
     fontSize: 10,
     fontWeight: 300
+  },
+  small: {
+    height: 18,
+    width: 18
   }
 }));
 
@@ -35,14 +39,18 @@ interface StarRatingProps {
   rating?: number;
   userRating?: number;
   onChange?: (stars: number) => void;
+  showRating?: boolean;
   readOnly?: boolean;
+  small?: boolean;
 }
 
 const StarRating: React.FC<StarRatingProps> = ({
   rating,
   userRating,
   onChange,
-  readOnly
+  showRating,
+  readOnly,
+  small
 }: StarRatingProps) => {
   const classes = useStyles();
 
@@ -61,7 +69,8 @@ const StarRating: React.FC<StarRatingProps> = ({
   };
 
   const iconClass = cn({
-    [classes.pointer]: !readOnly
+    [classes.pointer]: !readOnly,
+    [classes.small]: small
   });
 
   const computedRating = Math.round(rating);
@@ -101,7 +110,7 @@ const StarRating: React.FC<StarRatingProps> = ({
             />
           );
         })}
-        {rating && (
+        {rating > 0 && showRating && (
           <Typography className={classes.rating}>{`(${rating})`}</Typography>
         )}
       </div>
@@ -118,7 +127,9 @@ StarRating.defaultProps = {
   rating: 0,
   userRating: null,
   onChange: null,
-  readOnly: false
+  showRating: false,
+  readOnly: false,
+  small: false
 };
 
 export default StarRating;

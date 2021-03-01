@@ -49,7 +49,7 @@ const HomeHero: React.FC<HomeHeroProps> = ({ recipe }: HomeHeroProps) => {
   const recipeLink = `/recipes/${id}`;
 
   return (
-    <Hero image={recipe?.image}>
+    <Hero image={recipe?.image} height={800}>
       <div className={classes.wrap}>
         <Link href={recipeLink}>
           <Card className={classes.card} title="Go to recipe">
