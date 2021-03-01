@@ -1,3 +1,4 @@
+import { getAccessToken } from '@auth0/nextjs-auth0';
 import axios from 'axios';
 import { NextApiRequest, NextApiResponse } from 'next';
 
@@ -17,7 +18,13 @@ export default async (
         query: { recipeId }
       } = req;
 
-      const response = await axios.get(`${apiBase}/v1/recipes/${recipeId}`);
+      const { accessToken } = await getAccessToken(req, res);
+
+      const response = await axios.get(`${apiBase}/v1/recipes/${recipeId}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      });
 
       res.status(response.status || 200).json(response.data);
     } catch (error) {

@@ -34,6 +34,7 @@ const ViewRecipeContent: React.FC<ViewRecipeContentProps> = ({
         image={recipe?.image}
         title={recipe?.title}
         description={recipe?.description}
+        canEdit={recipe?.isAuthor}
       />
       <RecipeMeta
         readOnly={!user}

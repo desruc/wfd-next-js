@@ -22,9 +22,11 @@ interface EditRecipeContent {
 const CreateRecipeContent: React.FC<EditRecipeContent> = ({
   recipe
 }: EditRecipeContent) => {
+  const router = useRouter();
+
   const {
     query: { recipeId }
-  } = useRouter();
+  } = router;
 
   const [snackbarProps, setSnackbarProps] = useState({
     open: false,
@@ -40,14 +42,16 @@ const CreateRecipeContent: React.FC<EditRecipeContent> = ({
     axios
       .put(`/api/recipes/${recipeId}/edit`, data)
       .then(() => {
-        setSnackbarProps((p) => ({
-          ...p,
-          open: true,
-          content: 'Recipe updated successfully'
-        }));
+        router.push(`/recipes/${recipeId}`);
       })
       .catch((err) => {
         setApiErrors(err.response.data.errors);
+
+        setSnackbarProps({
+          variant: 'error',
+          open: true,
+          content: 'Recipe updated successfully'
+        });
       });
   };
 
