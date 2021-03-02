@@ -8,15 +8,21 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
 const useStyles = makeStyles((theme) => ({
+  icon: {
+    color: theme.palette.background.paper
+  },
   listItem: {
     padding: 0
+  },
+  paper: {
+    background: theme.palette.background.default
   },
   link: {
     color: theme.palette.text.primary,
     textDecoration: 'none',
     padding: `${theme.spacing(1)}px ${theme.spacing(2)}px`,
     '&:hover': {
-      color: theme.palette.primary.light
+      color: theme.palette.secondary.light
     }
   }
 }));
@@ -61,9 +67,14 @@ const UserMenu: React.FC = () => {
   return (
     <>
       <IconButton onClick={openMenu} disabled={isLoading}>
-        <AccountCircleRoundedIcon />
+        <AccountCircleRoundedIcon className={classes.icon} />
       </IconButton>
-      <Menu open={menuOpen} onClose={closeMenu} anchorEl={anchorEl}>
+      <Menu
+        open={menuOpen}
+        onClose={closeMenu}
+        anchorEl={anchorEl}
+        classes={{ paper: classes.paper }}
+      >
         {menuItems
           .filter((i) => i.isAuthenticated === isAuthenticated)
           .map((item) => (

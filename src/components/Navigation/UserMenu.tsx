@@ -15,13 +15,17 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: theme.spacing(1)
   },
   button: {
+    color: theme.palette.background.paper,
     lineHeight: 1.2,
     fontWeight: 600,
     fontSize: 16
   },
+  paper: {
+    background: theme.palette.background.default
+  },
   menuItem: {
     '&:hover': {
-      color: theme.palette.primary.light
+      color: theme.palette.secondary.light
     }
   }
 }));
@@ -60,7 +64,12 @@ const UserMenu: React.FC = () => {
         You
         <ArrowDropDownIcon />
       </Button>
-      <Menu anchorEl={anchorEl} open={isOpen} onClose={closeMenu}>
+      <Menu
+        anchorEl={anchorEl}
+        open={isOpen}
+        onClose={closeMenu}
+        classes={{ paper: classes.paper }}
+      >
         <MenuItem
           className={classes.menuItem}
           onClick={onYourRecipes}

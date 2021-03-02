@@ -14,6 +14,9 @@ import Hero from '~/components/Global/Hero';
 import { truncateString } from '~/utils/helpers';
 
 const useStyles = makeStyles((theme) => ({
+  section: {
+    marginBottom: theme.spacing(7)
+  },
   wrap: {
     padding: `${theme.spacing(6)}px ${theme.spacing(18)}px`,
     height: '100%',
@@ -49,26 +52,28 @@ const HomeHero: React.FC<HomeHeroProps> = ({ recipe }: HomeHeroProps) => {
   const recipeLink = `/recipes/${id}`;
 
   return (
-    <Hero image={recipe?.image} height={800}>
-      <div className={classes.wrap}>
-        <Link href={recipeLink}>
-          <Card className={classes.card} title="Go to recipe">
-            <CardContent>
-              {title && (
-                <Typography noWrap gutterBottom variant="h5" component="h2">
-                  {title}
-                </Typography>
-              )}
-              {description && (
-                <Typography className={classes.description}>
-                  {truncateString(description, 125)}
-                </Typography>
-              )}
-            </CardContent>
-          </Card>
-        </Link>
-      </div>
-    </Hero>
+    <section className={classes.section}>
+      <Hero image={recipe?.image} height={800}>
+        <div className={classes.wrap}>
+          <Link href={recipeLink}>
+            <Card className={classes.card} title="Go to recipe">
+              <CardContent>
+                {title && (
+                  <Typography noWrap gutterBottom variant="h5" component="h2">
+                    {title}
+                  </Typography>
+                )}
+                {description && (
+                  <Typography className={classes.description}>
+                    {truncateString(description, 125)}
+                  </Typography>
+                )}
+              </CardContent>
+            </Card>
+          </Link>
+        </div>
+      </Hero>
+    </section>
   );
 };
 

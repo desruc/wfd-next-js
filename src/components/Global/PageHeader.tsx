@@ -23,7 +23,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({
 
   return (
     <Box marginBottom={4} display="flex" alignItems="center">
-      <Typography variant="h1" color="textPrimary" className={classes.title}>
+      <Typography variant="h1" className={classes.title}>
         {title}
       </Typography>
       <Box>{HeaderAction}</Box>

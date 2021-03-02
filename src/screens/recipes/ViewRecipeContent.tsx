@@ -29,7 +29,7 @@ const ViewRecipeContent: React.FC<ViewRecipeContentProps> = ({
   const computedUserRating = newRating || authUserRating?.score;
 
   return (
-    <div>
+    <main>
       <RecipeHero
         image={recipe?.image}
         title={recipe?.title}
@@ -45,7 +45,7 @@ const ViewRecipeContent: React.FC<ViewRecipeContentProps> = ({
         prepTime={recipe?.prepTime}
         cookingTime={recipe?.cookingTime}
       />
-    </div>
+    </main>
   );
 };
 

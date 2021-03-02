@@ -24,9 +24,17 @@ const CreateRecipeContent: React.FC = () => {
 
   const closeSnackbar = () => setSnackbarProps((s) => ({ ...s, open: false }));
 
+  const [imageSrc, setImageSrc] = useState('');
+
+  const onImageChange = (src: string) => setImageSrc(src);
+
   const onSubmit = (data: RecipePayload): void => {
     axios
-      .post('/api/recipes/create', { ...data, author: user?.sub })
+      .post('/api/recipes/create', {
+        ...data,
+        image: imageSrc,
+        author: user?.sub
+      })
       .then(() => {
         setSnackbarProps((p) => ({
           ...p,
@@ -36,14 +44,10 @@ const CreateRecipeContent: React.FC = () => {
       });
   };
 
-  const [imageSrc, setImageSrc] = useState('');
-
-  const onImageChange = (src: string) => setImageSrc(src);
-
   const { open: snackbarOpen, variant, content } = snackbarProps;
 
   return (
-    <div>
+    <main>
       <PageHeader title="Create recipe" />
       <RecipeForm
         onSubmit={onSubmit}
@@ -56,7 +60,7 @@ const CreateRecipeContent: React.FC = () => {
         content={content}
         handleClose={closeSnackbar}
       />
-    </div>
+    </main>
   );
 };
 

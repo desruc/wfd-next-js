@@ -2,6 +2,8 @@ import React from 'react';
 
 import Link from 'next/link';
 
+import { Recipe } from 'wfd';
+
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
@@ -31,13 +33,6 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-interface Recipe {
-  id: string;
-  image: string;
-  title: string;
-  description: string;
-}
-
 interface RecipeCardListProps {
   title?: string;
   link?: string;
@@ -57,7 +52,7 @@ const RecipeCardList: React.FC<RecipeCardListProps> = ({
     <>
       {title && (
         <Box
-          marginTop={8}
+          marginTop={2}
           marginBottom={2}
           display="flex"
           justifyContent="space-between"

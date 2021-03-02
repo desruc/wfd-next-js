@@ -23,7 +23,7 @@ const AuthUserRecipesContent: React.FC<AuthUserRecipesContentProps> = ({
   const headerAction = (
     <>
       {user && (
-        <Button variant="contained" color="secondary" onClick={onCreateRecipe}>
+        <Button variant="contained" color="primary" onClick={onCreateRecipe}>
           Create recipe
         </Button>
       )}
@@ -34,10 +34,10 @@ const AuthUserRecipesContent: React.FC<AuthUserRecipesContentProps> = ({
     router.push(`/recipes/${recipeId}`);
 
   return (
-    <div>
+    <main>
       <PageHeader title="Your recipes" headerAction={headerAction} />
       <RecipeCardList recipes={recipes} onRecipeClick={onRecipeClick} />
-    </div>
+    </main>
   );
 };
 

@@ -38,9 +38,16 @@ const CreateRecipeContent: React.FC<EditRecipeContent> = ({
 
   const closeSnackbar = () => setSnackbarProps((s) => ({ ...s, open: false }));
 
+  const [imageSrc, setImageSrc] = useState('');
+
+  const onImageChange = (src: string) => setImageSrc(src);
+
   const onSubmit = (data: RecipePayload): void => {
     axios
-      .put(`/api/recipes/${recipeId}/edit`, data)
+      .put(`/api/recipes/${recipeId}/edit`, {
+        ...data,
+        image: imageSrc || recipe.image
+      })
       .then(() => {
         router.push(`/recipes/${recipeId}`);
       })
@@ -55,14 +62,10 @@ const CreateRecipeContent: React.FC<EditRecipeContent> = ({
       });
   };
 
-  const [imageSrc, setImageSrc] = useState('');
-
-  const onImageChange = (src: string) => setImageSrc(src);
-
   const { open: snackbarOpen, variant, content } = snackbarProps;
 
   return (
-    <div>
+    <main>
       <PageHeader title="Edit recipe" />
       <RecipeForm
         recipe={recipe}
@@ -77,7 +80,7 @@ const CreateRecipeContent: React.FC<EditRecipeContent> = ({
         content={content}
         handleClose={closeSnackbar}
       />
-    </div>
+    </main>
   );
 };
 

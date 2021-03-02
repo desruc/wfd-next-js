@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 
 import { Recipe } from 'wfd';
 
+import PageHeader from '~/components/Global/PageHeader';
 import RecipeCardList from '~/components/Recipes/RecipeCardList';
 
 interface IndexProps {
@@ -16,9 +17,14 @@ const BrowseContent: React.FC<IndexProps> = ({ recipes }: IndexProps) => {
     router.push(`/recipes/${recipeId}`);
 
   return (
-    <div>
-      <RecipeCardList recipes={recipes} onRecipeClick={onRecipeClick} />
-    </div>
+    <main>
+      <PageHeader title="Browse" />
+      <RecipeCardList
+        title="Recent recipes"
+        recipes={recipes}
+        onRecipeClick={onRecipeClick}
+      />
+    </main>
   );
 };
 

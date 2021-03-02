@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import cn from 'classnames';
 import { useUser } from '@auth0/nextjs-auth0';
+import { animated, useSpring } from 'react-spring';
 
 import Link from 'next/link';
 
@@ -12,7 +13,6 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -63,8 +63,7 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen
     }),
-    backgroundColor: theme.palette.background.default,
-    boxShadow: `inset 0 -1px 0 0 ${theme.palette.divider}`
+    backgroundColor: '#d8eefe'
   },
   logo: {
     height: 30,
@@ -96,6 +95,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(1.25),
     transition: 'all 0.2s ease-in-out',
     minHeight: 45,
+    color: theme.palette.background.paper,
     '&:hover': {
       backgroundColor: theme.palette.primary.main
     }
@@ -118,9 +118,9 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 600,
     fontSize: 16,
     textDecoration: 'none',
-    color: theme.palette.text.primary,
+    color: theme.palette.background.paper,
     '&:hover': {
-      color: theme.palette.primary.light
+      color: theme.palette.secondary.light
     }
   }
 }));
@@ -142,6 +142,17 @@ const Navigation: React.FC = () => {
     setOpen(false);
   };
 
+  const [logoStyle, setLogoStyle] = useSpring(() => ({
+    config: { mass: 1, tension: 350, friction: 10 },
+    transform: 'translate3d(0px, 0px, 0px)'
+  }));
+
+  const onMouseEnterLogo = () =>
+    setLogoStyle({ transform: 'translate3d(2px, -2px, 2px)' });
+
+  const onMouseLeaveLogo = () =>
+    setLogoStyle({ transform: 'translate3d(0px, 0px, 0px)' });
+
   return (
     <>
       <AppBar position="fixed" className={classes.appBar}>
@@ -159,7 +170,17 @@ const Navigation: React.FC = () => {
               </IconButton>
             </Hidden>
             <Link href="/">
-              <img src="/images/logo.svg" alt="Logo" className={classes.logo} />
+              <animated.div
+                style={logoStyle}
+                onMouseEnter={onMouseEnterLogo}
+                onMouseLeave={onMouseLeaveLogo}
+              >
+                <img
+                  src="/images/logo.svg"
+                  alt="Logo"
+                  className={classes.logo}
+                />
+              </animated.div>
             </Link>
             <Hidden xsDown>
               {menuRoutes

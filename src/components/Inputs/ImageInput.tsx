@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundPosition: 'center center',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: theme.palette.background.default,
     border: '1px solid transparent',
     cursor: 'pointer',
     margin: '0 auto'

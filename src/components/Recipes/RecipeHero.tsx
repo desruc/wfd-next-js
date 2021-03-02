@@ -10,8 +10,9 @@ import EditIcon from '@material-ui/icons/Edit';
 
 import Hero from '~/components/Global/Hero';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   editButton: {
+    color: theme.palette.background.paper,
     position: 'absolute',
     top: 10,
     right: 10
@@ -23,7 +24,7 @@ const useStyles = makeStyles({
     right: 0,
     margin: '0 auto'
   }
-});
+}));
 
 interface RecipeHeroProps {
   image?: string;

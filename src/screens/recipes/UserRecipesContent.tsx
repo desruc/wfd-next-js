@@ -3,9 +3,6 @@ import { useRouter } from 'next/router';
 
 import { Recipe, User } from 'wfd';
 
-import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
-
 import UserHeader from '~/components/Users/UserHeader';
 import RecipeCardList from '~/components/Recipes/RecipeCardList';
 
@@ -24,17 +21,18 @@ const UserRecipesContent: React.FC<UserRecipesContentProps> = ({
     router.push(`/recipes/${recipeId}`);
 
   return (
-    <div>
+    <main>
       <UserHeader
         firstName={user?.firstName}
         lastName={user?.lastName}
         fullName={user?.fullName}
       />
-      <Box marginBottom={4}>
-        <Typography variant="h4">Recipes</Typography>
-      </Box>
-      <RecipeCardList recipes={recipes} onRecipeClick={onRecipeClick} />
-    </div>
+      <RecipeCardList
+        title="Recipes"
+        recipes={recipes}
+        onRecipeClick={onRecipeClick}
+      />
+    </main>
   );
 };
 

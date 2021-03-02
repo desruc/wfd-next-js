@@ -23,16 +23,21 @@ const useStyles = makeStyles((theme) => ({
   hoverBg: {
     background: theme.palette.divider,
     borderRadius: theme.shape.borderRadius,
-    width: 280,
-    height: 320
+    width: 280
   },
   root: {
     width: 280,
-    height: 320,
     cursor: 'pointer'
   },
   media: {
     height: 150
+  },
+  contentWrap: {
+    paddingBottom: `${theme.spacing(2)}px !important`
+  },
+  content: {
+    height: 157,
+    marginBottom: theme.spacing(2)
   },
   description: {
     fontSize: '0.875rem',
@@ -40,7 +45,10 @@ const useStyles = makeStyles((theme) => ({
   },
   noRating: {
     fontSize: '0.75rem',
-    fontWeight: 300
+    fontWeight: 300,
+    height: 24,
+    display: 'flex',
+    alignItems: 'center'
   },
   metaWrap: {
     display: 'flex',
@@ -97,10 +105,10 @@ const RecipeCard: React.FC<RecipeCardProps> = ({
         >
           <Card className={classes.root} elevation={3}>
             <CardMedia className={classes.media} image={computedImage} />
-            <CardContent>
-              <div>
-                <Typography noWrap gutterBottom variant="h5" component="h2">
-                  {title}
+            <CardContent className={classes.contentWrap}>
+              <div className={classes.content}>
+                <Typography gutterBottom variant="h5" component="h2">
+                  {truncateString(title, 35)}
                 </Typography>
                 <Typography className={classes.description}>
                   {truncateString(description, 125)}
@@ -108,7 +116,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({
               </div>
               <div>
                 {rating ? (
-                  <StarRating readOnly small rating={4} />
+                  <StarRating readOnly small rating={rating} />
                 ) : (
                   <Typography className={classes.noRating}>
                     No rating yet

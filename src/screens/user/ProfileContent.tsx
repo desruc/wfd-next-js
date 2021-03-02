@@ -39,7 +39,7 @@ const ProfileContent: React.FC<ProfileContentProps> = ({
   };
 
   return (
-    <div>
+    <main>
       <PageHeader title="Profile" />
       <ProfileForm
         onSubmit={onSubmit}
@@ -53,7 +53,7 @@ const ProfileContent: React.FC<ProfileContentProps> = ({
         content={snackbarProps.content}
         handleClose={toggleSnackbar}
       />
-    </div>
+    </main>
   );
 };
 

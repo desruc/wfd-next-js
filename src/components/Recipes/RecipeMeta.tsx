@@ -29,12 +29,14 @@ const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.leavingScreen
     }),
     '&:hover': {
-      color: theme.palette.secondary.main
+      color: theme.palette.secondary.main,
+      textDecoration: 'underline'
     }
   },
   flexCenter: {
     display: 'flex',
-    alignItems: 'center'
+    alignItems: 'center',
+    lineHeight: '120%'
   },
   avatar: {
     height: theme.spacing(3),

@@ -10,32 +10,56 @@ const muiTheme: Theme = createMuiTheme({
     borderRadius: 10
   },
   palette: {
-    type: 'dark'
+    common: {
+      black: '#000000',
+      white: '#FFFFFF'
+    },
+    primary: {
+      main: '#3da9fc'
+    },
+    secondary: {
+      main: '#ef4565'
+    },
+    background: {
+      default: '#fffffe',
+      paper: '#094067'
+    },
+    text: {
+      primary: '#5f6c7b'
+    }
   },
   typography: {
     htmlFontSize: 16,
     fontSize: 14,
-    fontFamily: 'Rubik, Roboto, Helvetica, Arial, sans-serif',
+    fontFamily:
+      'Source Sans Pro, Poppins, Roboto, Helvetica, Arial, sans-serif',
     button: {
       textTransform: 'none'
     },
     h1: {
-      fontFamily: ' Rubik, Roboto, Helvetica, Arial, sans-serif'
+      color: '#094067',
+      fontSize: '3.5rem',
+      fontFamily: 'Poppins, Roboto, Helvetica, Arial, sans-serif'
     },
     h2: {
-      fontFamily: ' Rubik, Roboto, Helvetica, Arial, sans-serif'
+      color: '#094067',
+      fontFamily: 'Poppins, Roboto, Helvetica, Arial, sans-serif'
     },
     h3: {
-      fontFamily: ' Rubik, Roboto, Helvetica, Arial, sans-serif'
+      color: '#094067',
+      fontFamily: 'Poppins, Roboto, Helvetica, Arial, sans-serif'
     },
     h4: {
-      fontFamily: ' Rubik, Roboto, Helvetica, Arial, sans-serif'
+      color: '#094067',
+      fontFamily: 'Poppins, Roboto, Helvetica, Arial, sans-serif'
     },
     h5: {
-      fontFamily: ' Rubik, Roboto, Helvetica, Arial, sans-serif'
+      color: '#094067',
+      fontFamily: 'Poppins, Roboto, Helvetica, Arial, sans-serif'
     },
     h6: {
-      fontFamily: ' Rubik, Roboto, Helvetica, Arial, sans-serif'
+      color: '#094067',
+      fontFamily: 'Poppins, Roboto, Helvetica, Arial, sans-serif'
     }
   },
   overrides: {
@@ -55,6 +79,14 @@ const muiTheme: Theme = createMuiTheme({
       root: {
         '& .MuiButton-root': {
           marginTop: '0'
+        }
+      }
+    },
+    MuiCardContent: {
+      root: {
+        color: '#d8eefe',
+        '& h2': {
+          color: '#fffffe !important'
         }
       }
     }

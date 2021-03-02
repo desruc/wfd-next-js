@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
         ? `linear-gradient(to top, rgba(0,0,0,0) 0%, ${
             props.color || theme.palette.secondary
           } 100%)`
-        : 'rgba(0,0,0,0.4)'
+        : 'rgba(0,0,0,0.2)'
     },
     '&:after': {
       content: "''",
@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
             theme.palette.background.default,
             0.4
           )} 40%, ${theme.palette.background.default} 100%)`
-        : 'rgba(0,0,0,0.3)'
+        : 'rgba(0,0,0,0.2)'
     }
   }),
   image: (props: UseStyleProps) => ({
