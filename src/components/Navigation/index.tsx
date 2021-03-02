@@ -66,9 +66,10 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.default,
     boxShadow: `inset 0 -1px 0 0 ${theme.palette.divider}`
   },
-  title: {
-    padding: '0rem 0.5rem',
-    cursor: 'pointer'
+  logo: {
+    height: 30,
+    cursor: 'pointer',
+    marginRight: theme.spacing(2)
   },
   icon: {
     transition: 'all 0.2s ease-in-out',
@@ -158,9 +159,7 @@ const Navigation: React.FC = () => {
               </IconButton>
             </Hidden>
             <Link href="/">
-              <Typography color="textPrimary" className={classes.title}>
-                wfd
-              </Typography>
+              <img src="/images/logo.svg" alt="Logo" className={classes.logo} />
             </Link>
             <Hidden xsDown>
               {menuRoutes

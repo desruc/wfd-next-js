@@ -30,7 +30,7 @@ export default function App(props: AppProps): JSX.Element {
   return (
     <>
       <Head>
-        <title>Whats for dinner</title>
+        <title>Whats For Dinner</title>
         <meta
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width"
