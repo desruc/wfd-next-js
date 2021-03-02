@@ -1,32 +1,45 @@
-# WFD Frontend
+<h1 align="center">wfd-next-js</h1>
+<p align="center">The frontend for WFD! A Next.js app written in TypeScript.</p>
 
-## Stack
+<h3 align="center">
+  <a href="https://github.com/desruc/wfd-api">View api</a>
+</h3>
 
-- Next.js
-- Typescript
-- Material-UI
+## First things first! 🚨
 
-## Development
+This is a work in progress! As you can see there is only a `develop` branch... I will remove this disclaimer and create a `master` branch when the first iteration is ready.
 
-1. Install dependencies with ```yarn install```
+## What is wfd? 🍳
 
+wfd is a recipe sharing platform!
 
-2. Create an `.env` file from the ```.env.example``` file and fill in the details
+## Features ⚡️
 
-3. Run the project with `yarn dev`
+- 💙 **TypeScript**
+- ⚛️ **Next.js** - Server-side React goodness
+- ☄️ **Material-UI** - Custom design system
+- ✔️ **Tests** - Jest is all set up and ready to go!
+- 😻 **Linting** - Eslint configured with the AirBnb standard and TypeScript packages
+- 💻 **VS Code ready** - Predefined config. Auto format on save etc.
+- 🐶 **Husky** - Ensures lint and format before commits
 
-## Testing
+## Setting up development 🛠️
 
-The project has testing support! Jest has been set up and can be run using `yarn test`. It also creates a coverage report.
+- Clone this repo
+- run `yarn install` in the root directory
+- create an `.env` file from the supplied `.env.example` and fill in the details
+- ensure a local version of the API is running
+- run `yarn dev` to start the web app
 
-## Linting
+## Hot tips 🔥
 
-The project includes ESLint and it has been configured to use AirBnb's popular standard, Prettier and the recommended React practices.
-You check for linting errors by running `yarn lint` and fix any linting errors automatically by running ```yarn lint:fix```
+- `./src` has been mapped to `~` for cleaner imports
 
-## Build
+## Commands 🤖
 
-Run `yarn build` to create a production build
-
-## Roadmap
-- Type Thunk actions
+- `yarn dev` - Start development mode
+- `yarn build` - Build for production
+- `yarn start` - Start a production build
+- `yarn lint` - Get a list of lint errors
+- `yarn lint:fix` - Attempts to fix lint errors for you
+- `yarn test` - Run all tests
