@@ -102,7 +102,7 @@ const ImageInput: React.FC<ImageInputProps> = ({
   };
 
   const computedValid = validSrc && src;
-  const computedSrc = computedValid ? src : '/images/recipe-placeholder.png';
+  const computedSrc = computedValid ? src : '';
 
   const popoverOpen = Boolean(anchorEl);
 

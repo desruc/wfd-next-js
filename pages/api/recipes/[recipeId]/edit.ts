@@ -1,7 +1,8 @@
-import { getAccessToken, withApiAuthRequired } from '@auth0/nextjs-auth0';
-import axios from 'axios';
+import { withApiAuthRequired } from '@auth0/nextjs-auth0';
 
 import getConfig from 'next/config';
+
+import getAxiosWithAuth from '~/utils/getAxiosWithAuth';
 
 const {
   publicRuntimeConfig: { apiBase }
@@ -13,16 +14,11 @@ export default withApiAuthRequired(async function editRecipe(req, res) {
       query: { recipeId }
     } = req;
 
-    const { accessToken } = await getAccessToken(req, res);
+    const axios = await getAxiosWithAuth(req, res);
 
     const response = await axios.put(
       `${apiBase}/v1/recipes/${recipeId}`,
-      req.body,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`
-        }
-      }
+      req.body
     );
 
     res.status(response.status || 200).json(response.data);

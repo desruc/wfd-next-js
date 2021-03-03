@@ -73,7 +73,7 @@ const RecipeHero: React.FC<RecipeHeroProps> = ({
 };
 
 RecipeHero.defaultProps = {
-  image: '/images/recipe-placeholder.png',
+  image: '',
   description: ''
 };
 

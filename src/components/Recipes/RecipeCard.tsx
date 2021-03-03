@@ -89,8 +89,6 @@ const RecipeCard: React.FC<RecipeCardProps> = ({
 
   const { image, title, description, rating, cookingTime } = recipe;
 
-  const computedImage = image || '/images/recipe-placeholder.png';
-
   return (
     <div className={classes.wrap}>
       <div
@@ -104,7 +102,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({
           onMouseLeave={onMouseLeave}
         >
           <Card className={classes.root} elevation={3}>
-            <CardMedia className={classes.media} image={computedImage} />
+            <CardMedia className={classes.media} image={image} />
             <CardContent className={classes.contentWrap}>
               <div className={classes.content}>
                 <Typography gutterBottom variant="h5" component="h2">

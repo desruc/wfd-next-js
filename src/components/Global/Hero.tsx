@@ -95,16 +95,10 @@ const Hero: React.FC<HeroProps> = ({
 }: HeroProps) => {
   const classes = useStyles({ color, image, blend, height });
 
-  const computedImage = image || '/images/recipe-placeholder.png';
-
   return (
     <div className={classes.wrap}>
       <div className={classes.inner}>
-        <img
-          className={classes.image}
-          src={computedImage}
-          alt="Hero background"
-        />
+        <img className={classes.image} src={image} alt="Hero background" />
         <div className={classes.children}>{children}</div>
       </div>
     </div>

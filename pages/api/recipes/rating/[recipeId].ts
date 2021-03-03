@@ -1,26 +1,25 @@
-import { getAccessToken, withApiAuthRequired } from '@auth0/nextjs-auth0';
+import { withApiAuthRequired } from '@auth0/nextjs-auth0';
 
 import getConfig from 'next/config';
 
-import axios from 'axios';
+import getAxiosWithAuth from '~/utils/getAxiosWithAuth';
 
 const {
   publicRuntimeConfig: { apiBase }
 } = getConfig();
 
 export default withApiAuthRequired(async function createRecipe(req, res) {
+  const axios = await getAxiosWithAuth(req, res);
+
   if (req.method === 'POST') {
     try {
-      const { accessToken } = await getAccessToken(req, res);
-
       const {
         query: { recipeId }
       } = req;
 
       const response = await axios.post(
         `${apiBase}/v1/recipes/${recipeId}/rating`,
-        req.body,
-        { headers: { Authorization: `Bearer ${accessToken}` } }
+        req.body
       );
 
       res.status(response.status || 200).json(response.data);
@@ -31,15 +30,12 @@ export default withApiAuthRequired(async function createRecipe(req, res) {
     }
   } else if (req.method === 'GET') {
     try {
-      const { accessToken } = await getAccessToken(req, res);
-
       const {
         query: { recipeId }
       } = req;
 
       const response = await axios.get(
-        `${apiBase}/v1/recipes/${recipeId}/rating`,
-        { headers: { Authorization: `Bearer ${accessToken}` } }
+        `${apiBase}/v1/recipes/${recipeId}/rating`
       );
 
       res.status(response.status || 200).json(response.data);

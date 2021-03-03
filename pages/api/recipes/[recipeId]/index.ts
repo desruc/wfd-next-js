@@ -1,8 +1,8 @@
-import { getAccessToken } from '@auth0/nextjs-auth0';
-import axios from 'axios';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 import getConfig from 'next/config';
+
+import getAxiosWithAuth from '~/utils/getAxiosWithAuth';
 
 const {
   publicRuntimeConfig: { apiBase }
@@ -12,25 +12,19 @@ export default async (
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> => {
-  if (req.method === 'GET') {
-    try {
-      const {
-        query: { recipeId }
-      } = req;
+  try {
+    const {
+      query: { recipeId }
+    } = req;
 
-      const { accessToken } = await getAccessToken(req, res);
+    const axios = await getAxiosWithAuth(req, res);
 
-      const response = await axios.get(`${apiBase}/v1/recipes/${recipeId}`, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`
-        }
-      });
+    const response = await axios.get(`${apiBase}/v1/recipes/${recipeId}`);
 
-      res.status(response.status || 200).json(response.data);
-    } catch (error) {
-      res.status(error.response?.data.error.status || 500).json({
-        ...error.response?.data.error
-      });
-    }
+    res.status(response.status || 200).json(response.data);
+  } catch (error) {
+    res.status(error.response?.data.error.status || 500).json({
+      ...error.response?.data.error
+    });
   }
 };

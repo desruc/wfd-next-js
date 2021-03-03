@@ -1,17 +1,20 @@
+import { NextApiRequest, NextApiResponse } from 'next';
+
 import getConfig from 'next/config';
 
-import axios from 'axios';
-import { NextApiRequest, NextApiResponse } from 'next';
+import getAxiosWithAuth from '~/utils/getAxiosWithAuth';
 
 const {
   publicRuntimeConfig: { apiBase }
 } = getConfig();
 
 export default async function publicRecipes(
-  _req: NextApiRequest,
+  req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> {
   try {
+    const axios = await getAxiosWithAuth(req, res);
+
     const response = await axios.get(`${apiBase}/v1/recipes`);
 
     res.status(response.status || 200).json(response.data);
