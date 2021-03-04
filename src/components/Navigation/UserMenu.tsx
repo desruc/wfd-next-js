@@ -56,6 +56,8 @@ const UserMenu: React.FC = () => {
   return (
     <div className={classes.wrap}>
       <Button
+        color="inherit"
+        variant="text"
         className={classes.button}
         aria-controls="user-menu"
         aria-haspopup="true"

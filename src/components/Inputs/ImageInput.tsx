@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     height: 240,
     maxWidth: 480,
     borderRadius: theme.shape.borderRadius,
-    boxShadow: theme.shadows[4],
+    boxShadow: theme.shadows[6],
     backgroundPosition: 'center center',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
@@ -54,6 +54,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     padding: theme.spacing(2),
+    backgroundColor: theme.palette.background.default,
     '& .MuiFormControl-root': {
       minHeight: '0px !important'
     },
@@ -75,11 +76,15 @@ const ImageInput: React.FC<ImageInputProps> = ({
   const classes = useStyles();
 
   const [anchorEl, setAnchorEl] = useState(null);
+
   const openPopover = (e) => setAnchorEl(e.target);
+
   const closePopover = () => setAnchorEl(null);
 
   const [url, setUrl] = useState('');
+
   const prevSrc = usePrevious(src);
+
   const onUrlChange = (e) => setUrl(e.target.value);
 
   const [validSrc, setValidSrc] = useState(true);
@@ -146,8 +151,9 @@ const ImageInput: React.FC<ImageInputProps> = ({
           label="Image Url"
           value={url}
           onChange={onUrlChange}
+          variant="white"
         />
-        <Button onClick={handleSave} color="primary" variant="contained">
+        <Button onClick={handleSave} color="secondary" variant="contained">
           Save
         </Button>
       </Popover>

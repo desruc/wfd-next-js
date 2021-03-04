@@ -21,7 +21,8 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(4)
   },
   checkboxContainer: {
-    textAlign: 'center'
+    textAlign: 'center',
+    color: theme.palette.common.white
   },
   submitContainer: {
     display: 'flex',
@@ -63,6 +64,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({
           id="title-input"
           label="Title"
           name="title"
+          required
           errors={computedErrors}
           defaultValue={recipe?.title}
         />
@@ -71,6 +73,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({
           id="description-input"
           label="Description"
           name="description"
+          required
           errors={computedErrors}
           defaultValue={recipe?.description}
         />
@@ -82,6 +85,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({
           type="number"
           errors={computedErrors}
           defaultValue={recipe?.prepTime}
+          helperText="In minutes"
         />
         <TextInput
           inputRef={register}
@@ -89,8 +93,10 @@ const RecipeForm: React.FC<RecipeFormProps> = ({
           label="Time to cook"
           name="cookingTime"
           type="number"
+          required
           errors={computedErrors}
           defaultValue={recipe?.cookingTime}
+          helperText="In minutes"
         />
         <div className={classes.checkboxContainer}>
           <Controller
@@ -110,6 +116,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({
         </div>
         <div className={classes.submitContainer}>
           <Button
+            color="secondary"
             onClick={handleSubmit(onSubmit)}
             loading={saving}
             disabled={saving}

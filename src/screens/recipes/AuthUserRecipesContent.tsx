@@ -5,6 +5,7 @@ import { useUser } from '@auth0/nextjs-auth0';
 import { Recipe } from 'wfd';
 
 import Container from '@material-ui/core/Container';
+import AddRoundedIcon from '@material-ui/icons/AddRounded';
 
 import PageHeader from '~/components/Global/PageHeader';
 import Button from '~/components/Inputs/Button';
@@ -23,13 +24,9 @@ const AuthUserRecipesContent: React.FC<AuthUserRecipesContentProps> = ({
   const onCreateRecipe = () => router.push('/recipes/create');
 
   const headerAction = (
-    <>
-      {user && (
-        <Button variant="contained" color="primary" onClick={onCreateRecipe}>
-          Create recipe
-        </Button>
-      )}
-    </>
+    <Button onClick={onCreateRecipe} startIcon={<AddRoundedIcon />}>
+      Create Recipe
+    </Button>
   );
 
   const onRecipeClick = ({ id: recipeId }) =>
@@ -38,7 +35,10 @@ const AuthUserRecipesContent: React.FC<AuthUserRecipesContentProps> = ({
   return (
     <main>
       <Container maxWidth="xl">
-        <PageHeader title="Your recipes" headerAction={headerAction} />
+        <PageHeader
+          title="Your recipes"
+          headerAction={user ? headerAction : null}
+        />
         <RecipeCardList recipes={recipes} onRecipeClick={onRecipeClick} />
       </Container>
     </main>

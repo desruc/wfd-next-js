@@ -141,7 +141,7 @@ const HomeHero: React.FC<HomeHeroProps> = ({ recipe }: HomeHeroProps) => {
                     <div className={classes.content}>
                       {title && (
                         <Typography gutterBottom variant="h2" component="h2">
-                          {truncateString(title, 35)}
+                          {truncateString(title, 50)}
                         </Typography>
                       )}
                       {description && (

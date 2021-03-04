@@ -8,19 +8,50 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 
 import CheckRoundedIcon from '@material-ui/icons/CheckRounded';
 
+interface UseStyleProps {
+  variant: string;
+}
+
 const useStyles = makeStyles((theme) => ({
   formControlRoot: {
     minHeight: 78
   },
-  inputRoot: {
+  labelRoot: ({ variant }: UseStyleProps) => ({
+    transform: 'none',
+    fontSize: 14,
+    fontWeight: 600,
+    color: `${
+      variant === 'blue'
+        ? theme.palette.common.white
+        : theme.palette.text.primary
+    } !important`
+  }),
+  required: {
+    color: theme.palette.secondary.dark
+  },
+  inputRoot: ({ variant }: UseStyleProps) => ({
+    color: `${
+      variant === 'blue' ? '#d8eefe' : theme.palette.text.primary
+    } !important`,
     alignItems: 'flex-start'
-  },
-  inputFocused: {
-    color: `${theme.palette.text.secondary} !important`
-  },
+  }),
+  inputFocused: ({ variant }: UseStyleProps) => ({
+    color: `${
+      variant === 'blue'
+        ? theme.palette.common.white
+        : theme.palette.text.primary
+    } !important`
+  }),
   successIcon: {
-    color: theme.palette.success.main
-  }
+    color: theme.palette.success.light
+  },
+  helperTextRoot: ({ variant }: UseStyleProps) => ({
+    color: `${
+      variant === 'blue'
+        ? theme.palette.common.white
+        : theme.palette.text.primary
+    } !important`
+  })
 }));
 
 interface TextInputProps extends InputProps {
@@ -35,6 +66,8 @@ interface TextInputProps extends InputProps {
   endAdornment?: React.ReactNode;
   helperText?: string;
   showSuccess?: boolean;
+  variant?: 'blue' | 'white';
+  required?: boolean;
 }
 
 const TextInput: React.FC<TextInputProps> = ({
@@ -47,9 +80,11 @@ const TextInput: React.FC<TextInputProps> = ({
   endAdornment,
   helperText,
   showSuccess,
+  variant,
+  required,
   ...rest
 }: TextInputProps) => {
-  const classes = useStyles();
+  const classes = useStyles({ variant });
 
   const hasError = errors && Object.keys(errors).some((key) => key === name);
   const errorMessage = (hasError && errors[name][0]) || '';
@@ -64,10 +99,12 @@ const TextInput: React.FC<TextInputProps> = ({
           htmlFor={id}
           error={hasError}
           classes={{
+            root: classes.labelRoot,
             focused: classes.inputFocused
           }}
         >
           {label}
+          {required && <span className={classes.required}>{` * `}</span>}
         </InputLabel>
       )}
       <Input
@@ -86,7 +123,11 @@ const TextInput: React.FC<TextInputProps> = ({
         /* eslint-disable-next-line */
         {...rest}
       />
-      {helperText && <FormHelperText>{helperText}</FormHelperText>}
+      {helperText && (
+        <FormHelperText classes={{ root: classes.helperTextRoot }}>
+          {helperText}
+        </FormHelperText>
+      )}
       {hasError && (
         <FormHelperText error={hasError}>{errorMessage}</FormHelperText>
       )}
@@ -102,7 +143,9 @@ TextInput.defaultProps = {
   helperText: '',
   startAdornment: null,
   endAdornment: null,
-  showSuccess: false
+  showSuccess: false,
+  variant: 'blue',
+  required: false
 };
 
 export default TextInput;

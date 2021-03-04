@@ -54,7 +54,7 @@ const CreateRecipeContent: React.FC = () => {
         <PageHeader title="Create recipe" />
         <RecipeForm
           onSubmit={onSubmit}
-          imageSrc={imageSrc}
+          imageSrc={imageSrc || '/images/recipe-placeholder.png'}
           onImageSave={onImageChange}
         />
         <Snackbar

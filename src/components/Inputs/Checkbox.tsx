@@ -8,7 +8,8 @@ import MuiCheckbox, {
 
 const useStyles = makeStyles({
   label: {
-    fontSize: '0.875rem !important'
+    fontSize: '0.875rem !important',
+    fontWeight: 600
   }
 });
 
