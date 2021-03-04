@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 
 interface UserHeaderProps {
@@ -16,12 +17,12 @@ const UserHeader: React.FC<UserHeaderProps> = ({
   const computedName = firstName && !lastName ? firstName : fullName;
 
   return (
-    <>
+    <Box marginTop={6}>
       <Typography variant="h2" align="center">
         {computedName}
       </Typography>
       {!firstName && <Typography>This user hasn't supplied a name</Typography>}
-    </>
+    </Box>
   );
 };
 

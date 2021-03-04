@@ -11,6 +11,9 @@ import EditIcon from '@material-ui/icons/Edit';
 import Hero from '~/components/Global/Hero';
 
 const useStyles = makeStyles((theme) => ({
+  section: {
+    marginBottom: theme.spacing(2)
+  },
   editButton: {
     color: theme.palette.background.paper,
     position: 'absolute',
@@ -52,23 +55,25 @@ const RecipeHero: React.FC<RecipeHeroProps> = ({
   const onEdit = () => router.push(`/recipes/${router.query.recipeId}/edit`);
 
   return (
-    <Hero image={image} blend>
-      {canEdit && (
-        <IconButton
-          onClick={onEdit}
-          className={classes.editButton}
-          title="Edit recipe"
-        >
-          <EditIcon />
-        </IconButton>
-      )}
-      <div className={classes.flex}>
-        <animated.div style={titleProps}>
-          <Typography variant="h1">{title}</Typography>
-          {description && <Typography variant="h5">{description}</Typography>}
-        </animated.div>
-      </div>
-    </Hero>
+    <section className={classes.section}>
+      <Hero image={image} blend>
+        {canEdit && (
+          <IconButton
+            onClick={onEdit}
+            className={classes.editButton}
+            title="Edit recipe"
+          >
+            <EditIcon />
+          </IconButton>
+        )}
+        <div className={classes.flex}>
+          <animated.div style={titleProps}>
+            <Typography variant="h1">{title}</Typography>
+            {description && <Typography variant="h5">{description}</Typography>}
+          </animated.div>
+        </div>
+      </Hero>
+    </section>
   );
 };
 

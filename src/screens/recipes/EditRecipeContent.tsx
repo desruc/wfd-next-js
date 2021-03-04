@@ -4,6 +4,8 @@ import { useRouter } from 'next/router';
 
 import { Recipe } from 'wfd';
 
+import Container from '@material-ui/core/Container';
+
 import PageHeader from '~/components/Global/PageHeader';
 import RecipeForm from '~/components/Recipes/RecipeForm';
 import Snackbar from '~/components/Global/Snackbar';
@@ -66,20 +68,22 @@ const CreateRecipeContent: React.FC<EditRecipeContent> = ({
 
   return (
     <main>
-      <PageHeader title="Edit recipe" />
-      <RecipeForm
-        recipe={recipe}
-        onSubmit={onSubmit}
-        imageSrc={imageSrc}
-        onImageSave={onImageChange}
-        apiErrors={apiErrors}
-      />
-      <Snackbar
-        open={snackbarOpen}
-        variant={variant}
-        content={content}
-        handleClose={closeSnackbar}
-      />
+      <Container maxWidth="xl">
+        <PageHeader title="Edit recipe" />
+        <RecipeForm
+          recipe={recipe}
+          onSubmit={onSubmit}
+          imageSrc={imageSrc || recipe?.image}
+          onImageSave={onImageChange}
+          apiErrors={apiErrors}
+        />
+        <Snackbar
+          open={snackbarOpen}
+          variant={variant}
+          content={content}
+          handleClose={closeSnackbar}
+        />
+      </Container>
     </main>
   );
 };

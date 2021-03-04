@@ -4,6 +4,8 @@ import { useUser } from '@auth0/nextjs-auth0';
 
 import { Recipe } from 'wfd';
 
+import Container from '@material-ui/core/Container';
+
 import PageHeader from '~/components/Global/PageHeader';
 import Button from '~/components/Inputs/Button';
 import RecipeCardList from '~/components/Recipes/RecipeCardList';
@@ -35,8 +37,10 @@ const AuthUserRecipesContent: React.FC<AuthUserRecipesContentProps> = ({
 
   return (
     <main>
-      <PageHeader title="Your recipes" headerAction={headerAction} />
-      <RecipeCardList recipes={recipes} onRecipeClick={onRecipeClick} />
+      <Container maxWidth="xl">
+        <PageHeader title="Your recipes" headerAction={headerAction} />
+        <RecipeCardList recipes={recipes} onRecipeClick={onRecipeClick} />
+      </Container>
     </main>
   );
 };

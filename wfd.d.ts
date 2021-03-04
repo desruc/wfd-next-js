@@ -7,13 +7,13 @@ export interface Recipe {
   title: string;
   description: string;
   image: string;
-  rating: number;
   author: User;
   prepTime?: number;
   cookingTime?: number;
   public: boolean;
   isAuthor?: boolean;
-  rating: number;
+  currentRating: number;
+  createdAt: string;
 }
 
 export interface User {

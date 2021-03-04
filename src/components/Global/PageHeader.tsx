@@ -13,16 +13,23 @@ const useStyles = makeStyles({
 interface PageHeaderProps {
   title: string;
   headerAction?: ReactElement;
+  marginTop?: number;
 }
 
 const PageHeader: React.FC<PageHeaderProps> = ({
   title,
-  headerAction: HeaderAction
+  headerAction: HeaderAction,
+  marginTop
 }: PageHeaderProps) => {
   const classes = useStyles();
 
   return (
-    <Box marginBottom={4} display="flex" alignItems="center">
+    <Box
+      marginBottom={4}
+      marginTop={marginTop}
+      display="flex"
+      alignItems="center"
+    >
       <Typography variant="h1" className={classes.title}>
         {title}
       </Typography>
@@ -32,7 +39,8 @@ const PageHeader: React.FC<PageHeaderProps> = ({
 };
 
 PageHeader.defaultProps = {
-  headerAction: null
+  headerAction: null,
+  marginTop: 6
 };
 
 export default PageHeader;

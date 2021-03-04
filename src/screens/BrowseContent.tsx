@@ -3,6 +3,8 @@ import { useRouter } from 'next/router';
 
 import { Recipe } from 'wfd';
 
+import Container from '@material-ui/core/Container';
+
 import PageHeader from '~/components/Global/PageHeader';
 import RecipeCardList from '~/components/Recipes/RecipeCardList';
 
@@ -18,12 +20,14 @@ const BrowseContent: React.FC<IndexProps> = ({ recipes }: IndexProps) => {
 
   return (
     <main>
-      <PageHeader title="Browse" />
-      <RecipeCardList
-        title="Recent recipes"
-        recipes={recipes}
-        onRecipeClick={onRecipeClick}
-      />
+      <Container maxWidth="xl">
+        <PageHeader title="Browse" />
+        <RecipeCardList
+          title="Recent recipes"
+          recipes={recipes}
+          onRecipeClick={onRecipeClick}
+        />
+      </Container>
     </main>
   );
 };

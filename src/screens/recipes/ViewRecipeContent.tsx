@@ -4,6 +4,8 @@ import { useUser } from '@auth0/nextjs-auth0';
 
 import { Recipe, RecipeRating } from 'wfd';
 
+import Container from '@material-ui/core/Container';
+
 import RecipeHero from '~/components/Recipes/RecipeHero';
 import RecipeMeta from '~/components/Recipes/RecipeMeta';
 
@@ -30,21 +32,23 @@ const ViewRecipeContent: React.FC<ViewRecipeContentProps> = ({
 
   return (
     <main>
-      <RecipeHero
-        image={recipe?.image}
-        title={recipe?.title}
-        description={recipe?.description}
-        canEdit={recipe?.isAuthor}
-      />
-      <RecipeMeta
-        readOnly={!user}
-        rating={recipe?.rating}
-        onSubmitRating={onSubmitRating}
-        userRating={computedUserRating}
-        author={recipe?.author}
-        prepTime={recipe?.prepTime}
-        cookingTime={recipe?.cookingTime}
-      />
+      <Container maxWidth="xl">
+        <RecipeHero
+          image={recipe?.image}
+          title={recipe?.title}
+          description={recipe?.description}
+          canEdit={recipe?.isAuthor}
+        />
+        <RecipeMeta
+          readOnly={!user}
+          rating={recipe?.currentRating}
+          onSubmitRating={onSubmitRating}
+          userRating={computedUserRating}
+          author={recipe?.author}
+          prepTime={recipe?.prepTime}
+          cookingTime={recipe?.cookingTime}
+        />
+      </Container>
     </main>
   );
 };

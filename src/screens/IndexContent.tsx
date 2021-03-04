@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { Recipe } from 'wfd';
 
 import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
 import Divider from '@material-ui/core/Divider';
 
 import RecipeCardList from '~/components/Recipes/RecipeCardList';
@@ -33,23 +34,25 @@ const IndexContent: React.FC<IndexProps> = ({ recipes }: IndexProps) => {
   return (
     <main>
       <HomeHero recipe={featuredRecipe} />
-      <section className={classes.cardList}>
-        <RecipeCardList
-          title="Recent Recipes"
-          link="/browse"
-          recipes={recipes}
-          onRecipeClick={onRecipeClick}
-        />
-      </section>
-      <Divider />
-      <section className={classes.cardList}>
-        <RecipeCardList
-          title="Popular Recipes"
-          link="/browse"
-          recipes={recipes}
-          onRecipeClick={onRecipeClick}
-        />
-      </section>
+      <Container maxWidth="xl">
+        <section className={classes.cardList}>
+          <RecipeCardList
+            title="Recent Recipes"
+            link="/browse"
+            recipes={recipes}
+            onRecipeClick={onRecipeClick}
+          />
+        </section>
+        <Divider />
+        <section className={classes.cardList}>
+          <RecipeCardList
+            title="Popular Recipes"
+            link="/browse"
+            recipes={recipes}
+            onRecipeClick={onRecipeClick}
+          />
+        </section>
+      </Container>
     </main>
   );
 };

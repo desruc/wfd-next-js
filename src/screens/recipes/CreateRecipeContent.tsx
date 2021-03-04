@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useUser } from '@auth0/nextjs-auth0';
 import axios from 'axios';
 
+import Container from '@material-ui/core/Container';
+
 import PageHeader from '~/components/Global/PageHeader';
 import RecipeForm from '~/components/Recipes/RecipeForm';
 import Snackbar from '~/components/Global/Snackbar';
@@ -48,18 +50,20 @@ const CreateRecipeContent: React.FC = () => {
 
   return (
     <main>
-      <PageHeader title="Create recipe" />
-      <RecipeForm
-        onSubmit={onSubmit}
-        imageSrc={imageSrc}
-        onImageSave={onImageChange}
-      />
-      <Snackbar
-        open={snackbarOpen}
-        variant={variant}
-        content={content}
-        handleClose={closeSnackbar}
-      />
+      <Container maxWidth="xl">
+        <PageHeader title="Create recipe" />
+        <RecipeForm
+          onSubmit={onSubmit}
+          imageSrc={imageSrc}
+          onImageSave={onImageChange}
+        />
+        <Snackbar
+          open={snackbarOpen}
+          variant={variant}
+          content={content}
+          handleClose={closeSnackbar}
+        />
+      </Container>
     </main>
   );
 };

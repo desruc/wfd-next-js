@@ -3,6 +3,8 @@ import { useRouter } from 'next/router';
 
 import { Recipe, User } from 'wfd';
 
+import Container from '@material-ui/core/Container';
+
 import UserHeader from '~/components/Users/UserHeader';
 import RecipeCardList from '~/components/Recipes/RecipeCardList';
 
@@ -22,16 +24,18 @@ const UserRecipesContent: React.FC<UserRecipesContentProps> = ({
 
   return (
     <main>
-      <UserHeader
-        firstName={user?.firstName}
-        lastName={user?.lastName}
-        fullName={user?.fullName}
-      />
-      <RecipeCardList
-        title="Recipes"
-        recipes={recipes}
-        onRecipeClick={onRecipeClick}
-      />
+      <Container maxWidth="xl">
+        <UserHeader
+          firstName={user?.firstName}
+          lastName={user?.lastName}
+          fullName={user?.fullName}
+        />
+        <RecipeCardList
+          title="Recipes"
+          recipes={recipes}
+          onRecipeClick={onRecipeClick}
+        />
+      </Container>
     </main>
   );
 };

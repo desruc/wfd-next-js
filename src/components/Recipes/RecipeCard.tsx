@@ -87,7 +87,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({
     if (onClick) onClick(recipe);
   };
 
-  const { image, title, description, rating, cookingTime } = recipe;
+  const { image, title, description, currentRating, cookingTime } = recipe;
 
   return (
     <div className={classes.wrap}>
@@ -113,8 +113,8 @@ const RecipeCard: React.FC<RecipeCardProps> = ({
                 </Typography>
               </div>
               <div>
-                {rating ? (
-                  <StarRating readOnly small rating={rating} />
+                {currentRating ? (
+                  <StarRating readOnly small rating={currentRating} />
                 ) : (
                   <Typography className={classes.noRating}>
                     No rating yet

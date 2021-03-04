@@ -3,6 +3,8 @@ import axios from 'axios';
 
 import { User } from 'wfd';
 
+import Container from '@material-ui/core/Container';
+
 import PageHeader from '~/components/Global/PageHeader';
 import ProfileForm from '~/components/Users/ProfileForm';
 import Snackbar from '~/components/Global/Snackbar';
@@ -40,19 +42,21 @@ const ProfileContent: React.FC<ProfileContentProps> = ({
 
   return (
     <main>
-      <PageHeader title="Profile" />
-      <ProfileForm
-        onSubmit={onSubmit}
-        firstName={user?.firstName || ''}
-        lastName={user?.lastName || ''}
-        saving={saving}
-      />
-      <Snackbar
-        open={snackbarProps.open}
-        variant={snackbarProps.variant}
-        content={snackbarProps.content}
-        handleClose={toggleSnackbar}
-      />
+      <Container maxWidth="xl">
+        <PageHeader title="Profile" />
+        <ProfileForm
+          onSubmit={onSubmit}
+          firstName={user?.firstName || ''}
+          lastName={user?.lastName || ''}
+          saving={saving}
+        />
+        <Snackbar
+          open={snackbarProps.open}
+          variant={snackbarProps.variant}
+          content={snackbarProps.content}
+          handleClose={toggleSnackbar}
+        />
+      </Container>
     </main>
   );
 };

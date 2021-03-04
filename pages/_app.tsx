@@ -8,7 +8,6 @@ import { UserProvider } from '@auth0/nextjs-auth0';
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Box from '@material-ui/core/Box';
-import Container from '@material-ui/core/Container';
 
 import Navigation from '~/components/Navigation';
 
@@ -44,12 +43,10 @@ export default function App(props: AppProps): JSX.Element {
             <Box
               flexGrow={1}
               overflow="hidden"
-              paddingTop={14}
+              paddingTop={8}
               paddingBottom={7}
             >
-              <Container maxWidth="xl">
-                <Component {...pageProps} />
-              </Container>
+              <Component {...pageProps} />
             </Box>
           </Box>
         </UserProvider>
