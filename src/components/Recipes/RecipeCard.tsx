@@ -8,8 +8,10 @@ import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+import Tooltip from '@material-ui/core/Tooltip';
 
 import QueryBuilderIcon from '@material-ui/icons/QueryBuilder';
+import VisibilityOffRoundedIcon from '@material-ui/icons/VisibilityOffRounded';
 
 import StarRating from '~/components/Recipes/StarRating';
 
@@ -59,6 +61,11 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '0.875rem',
     fontWeight: 300,
     marginLeft: theme.spacing(0.5)
+  },
+  flex: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'flex-end'
   }
 }));
 
@@ -80,6 +87,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({
 
   const onMouseEnter = () =>
     setProps({ transform: 'translate3d(10px, -10px, 10px)' });
+
   const onMouseLeave = () =>
     setProps({ transform: 'translate3d(0px, 0px, 0px)' });
 
@@ -87,7 +95,14 @@ const RecipeCard: React.FC<RecipeCardProps> = ({
     if (onClick) onClick(recipe);
   };
 
-  const { image, title, description, currentRating, cookingTime } = recipe;
+  const {
+    image,
+    title,
+    description,
+    currentRating,
+    cookingTime,
+    public: isPublic
+  } = recipe;
 
   return (
     <div className={classes.wrap}>
@@ -112,20 +127,30 @@ const RecipeCard: React.FC<RecipeCardProps> = ({
                   {truncateString(description, 125)}
                 </Typography>
               </div>
-              <div>
-                {currentRating ? (
-                  <StarRating readOnly small rating={currentRating} />
-                ) : (
-                  <Typography className={classes.noRating}>
-                    No rating yet
-                  </Typography>
-                )}
-                <div className={classes.metaWrap}>
-                  <QueryBuilderIcon />
-                  <Typography className={classes.meta}>
-                    {computeTime(cookingTime)}
-                  </Typography>
+              <div className={classes.flex}>
+                <div>
+                  {currentRating ? (
+                    <StarRating readOnly small rating={currentRating} />
+                  ) : (
+                    <Typography className={classes.noRating}>
+                      No rating yet
+                    </Typography>
+                  )}
+                  <div className={classes.metaWrap}>
+                    <QueryBuilderIcon />
+                    <Typography className={classes.meta}>
+                      {computeTime(cookingTime)}
+                    </Typography>
+                  </div>
                 </div>
+                {!isPublic && (
+                  <Tooltip
+                    title="This recipe is currently private"
+                    placement="top"
+                  >
+                    <VisibilityOffRoundedIcon />
+                  </Tooltip>
+                )}
               </div>
             </CardContent>
           </Card>
