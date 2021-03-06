@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 
 import { NextPage } from 'next';
 
-import EditRecipeContent from '~/screens/recipes/EditRecipeContent';
+import CreateOrEditRecipeContent from '~/screens/recipes/CreateOrEditRecipeContent';
 
 const CreateRecipePage: NextPage = () => {
   const {
@@ -14,7 +14,7 @@ const CreateRecipePage: NextPage = () => {
 
   const { data: recipeResponse } = useSWR(`/api/recipes/${recipeId}`);
 
-  return <EditRecipeContent recipe={recipeResponse?.data} />;
+  return <CreateOrEditRecipeContent recipe={recipeResponse?.data} />;
 };
 
 export const getServerSideProps = withPageAuthRequired();

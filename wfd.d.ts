@@ -14,6 +14,8 @@ export interface Recipe {
   isAuthor?: boolean;
   currentRating: number;
   createdAt: string;
+  ingredients: string[];
+  instructions: string;
 }
 
 export interface User {

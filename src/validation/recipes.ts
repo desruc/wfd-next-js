@@ -14,7 +14,9 @@ export const createRecipe = Joi.object().keys({
     'string.empty': 'You must specify how long it takes to cook your recipe.',
     'any.required': 'You must specify how long it takes to cook your recipe.'
   }),
-  public: Joi.bool()
+  public: Joi.bool(),
+  instructions: Joi.string(),
+  originalUrl: Joi.string().allow(null, '')
 });
 
 export default createRecipe;

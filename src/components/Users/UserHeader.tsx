@@ -21,7 +21,9 @@ const UserHeader: React.FC<UserHeaderProps> = ({
       <Typography variant="h2" align="center">
         {computedName}
       </Typography>
-      {!firstName && <Typography>This user hasn't supplied a name</Typography>}
+      {!firstName && (
+        <Typography>This user hasn`&apos;`t supplied a name</Typography>
+      )}
     </Box>
   );
 };
