@@ -9,9 +9,10 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Box from '@material-ui/core/Box';
 
-import Navigation from '~/components/Navigation';
-
 import SnackbarProvider from '~/providers/snackbar';
+
+import Navigation from '~/components/Navigation';
+import Footer from '~/components/Global/Footer';
 
 import theme from '~/theme';
 
@@ -41,17 +42,19 @@ export default function App(props: AppProps): JSX.Element {
         <CssBaseline />
         <UserProvider user={user}>
           <SnackbarProvider>
+            <Navigation />
             <Box display="flex">
-              <Navigation />
               <Box
                 flexGrow={1}
                 overflow="hidden"
                 paddingTop={8}
                 paddingBottom={7}
+                minHeight="100vh"
               >
                 <Component {...pageProps} />
               </Box>
             </Box>
+            <Footer />
           </SnackbarProvider>
         </UserProvider>
       </ThemeProvider>
