@@ -11,6 +11,8 @@ import Box from '@material-ui/core/Box';
 
 import Navigation from '~/components/Navigation';
 
+import SnackbarProvider from '~/providers/snackbar';
+
 import theme from '~/theme';
 
 export default function App(props: AppProps): JSX.Element {
@@ -38,17 +40,19 @@ export default function App(props: AppProps): JSX.Element {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <UserProvider user={user}>
-          <Box display="flex">
-            <Navigation />
-            <Box
-              flexGrow={1}
-              overflow="hidden"
-              paddingTop={8}
-              paddingBottom={7}
-            >
-              <Component {...pageProps} />
+          <SnackbarProvider>
+            <Box display="flex">
+              <Navigation />
+              <Box
+                flexGrow={1}
+                overflow="hidden"
+                paddingTop={8}
+                paddingBottom={7}
+              >
+                <Component {...pageProps} />
+              </Box>
             </Box>
-          </Box>
+          </SnackbarProvider>
         </UserProvider>
       </ThemeProvider>
     </>

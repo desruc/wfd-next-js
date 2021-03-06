@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useUser } from '@auth0/nextjs-auth0';
+import { useRouter } from 'next/router';
 import axios from 'axios';
 
 import { Recipe } from 'wfd';
@@ -9,7 +10,6 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 
 import PageHeader from '~/components/Global/PageHeader';
-import Snackbar from '~/components/Global/Snackbar';
 import RecipeIngredients from '~/components/Recipes/Form/RecipeIngredients';
 import RecipeDetails from '~/components/Recipes/Form/RecipeDetails';
 import RecipeInstructions from '~/components/Recipes/Form/RecipeInstructions';
@@ -17,6 +17,8 @@ import RecipeInstructions from '~/components/Recipes/Form/RecipeInstructions';
 import { useValidatedForm } from '~/validation';
 import { createRecipe } from '~/validation/recipes';
 import ImageInput from '~/components/Inputs/ImageInput';
+
+import useSnackbar from '~/hooks/useSnackbar';
 
 interface RecipePayload {
   title: string;
@@ -38,17 +40,12 @@ interface CreateOrEditRecipeContent {
 const CreateOrEditRecipeContent: React.FC<CreateOrEditRecipeContent> = ({
   recipe
 }: CreateOrEditRecipeContent) => {
+  const router = useRouter();
+  const { openSnackbar } = useSnackbar();
+
   const classes = useStyles();
 
   const { user } = useUser();
-
-  const [snackbarProps, setSnackbarProps] = useState({
-    open: false,
-    variant: 'success',
-    content: ''
-  });
-
-  const closeSnackbar = () => setSnackbarProps((s) => ({ ...s, open: false }));
 
   const { register, handleSubmit, control } = useValidatedForm(createRecipe);
 
@@ -97,16 +94,16 @@ const CreateOrEditRecipeContent: React.FC<CreateOrEditRecipeContent> = ({
       image: imageSrc,
       ingredients: ingredients.filter(Boolean),
       author: user?.sub
-    }).then(() => {
-      setSnackbarProps((p) => ({
-        ...p,
-        open: true,
-        content: `Recipe ${recipe ? 'updated' : 'created'} successfully`
-      }));
+    }).then(({ data: { data: newRecipe } }) => {
+      const snackbarContent = `Recipe ${
+        recipe ? 'updated' : 'created'
+      } successfully`;
+
+      openSnackbar(snackbarContent);
+
+      router.push(`/recipes/${newRecipe.id}`);
     });
   });
-
-  const { open: snackbarOpen, variant, content } = snackbarProps;
 
   const computedImage = imageSrc || recipe?.image;
 
@@ -139,12 +136,6 @@ const CreateOrEditRecipeContent: React.FC<CreateOrEditRecipeContent> = ({
             />
           </Grid>
         </Grid>
-        <Snackbar
-          open={snackbarOpen}
-          variant={variant}
-          content={content}
-          handleClose={closeSnackbar}
-        />
       </Container>
     </main>
   );

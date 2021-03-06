@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 interface SnackbarProps {
-  variant: string;
+  variant: 'success' | 'error' | 'warning' | 'info';
   content: string;
   open: boolean;
   handleClose: () => void;
