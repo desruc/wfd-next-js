@@ -35,13 +35,15 @@ interface RecipeDetailsProps {
   recipe?: Recipe;
   checkboxControl: Control<Record<string, any>>; // eslint-disable-line
   onSubmit: () => void;
+  errors?: Record<string, string[]>;
 }
 
 const RecipeInstructions: React.FC<RecipeDetailsProps> = ({
   inputRef,
   recipe,
   checkboxControl,
-  onSubmit
+  onSubmit,
+  errors
 }: RecipeDetailsProps) => {
   const classes = useStyles();
 
@@ -55,6 +57,7 @@ const RecipeInstructions: React.FC<RecipeDetailsProps> = ({
         multiline
         rows={5}
         defaultValue={recipe?.instructions}
+        errors={errors}
       />
       <div className={classes.checkboxContainer}>
         <Controller
@@ -82,7 +85,8 @@ const RecipeInstructions: React.FC<RecipeDetailsProps> = ({
 };
 
 RecipeInstructions.defaultProps = {
-  recipe: null
+  recipe: null,
+  errors: null
 };
 
 export default RecipeInstructions;

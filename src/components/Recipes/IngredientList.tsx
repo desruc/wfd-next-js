@@ -3,7 +3,7 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
 interface IngredientListProps {
-  ingredients: string[];
+  ingredients?: string[];
 }
 
 const IngredientList: React.FC<IngredientListProps> = ({
@@ -18,5 +18,9 @@ const IngredientList: React.FC<IngredientListProps> = ({
     </ul>
   </>
 );
+
+IngredientList.defaultProps = {
+  ingredients: []
+};
 
 export default IngredientList;

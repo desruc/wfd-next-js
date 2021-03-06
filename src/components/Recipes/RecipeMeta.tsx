@@ -13,6 +13,9 @@ import StarRating from '~/components/Recipes/StarRating';
 import { computeTime } from '~/utils/helpers';
 
 const useStyles = makeStyles((theme) => ({
+  grid: {
+    marginBottom: theme.spacing(4)
+  },
   bold: {
     fontWeight: 700
   },
@@ -74,7 +77,7 @@ const RecipeMeta: React.FC<RecipeMetaProps> = ({
   const computedCookingTime = computeTime(cookingTime);
 
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={2} className={classes.grid}>
       <Grid item xs={6} sm={3}>
         <StarRating
           rating={rating}

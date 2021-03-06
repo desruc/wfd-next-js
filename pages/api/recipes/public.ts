@@ -13,9 +13,15 @@ export default async function publicRecipes(
   res: NextApiResponse
 ): Promise<void> {
   try {
+    const { limit } = req.query;
+
+    const computedLimit = limit || 20;
+
     const axios = await getAxiosWithAuth(req, res);
 
-    const response = await axios.get(`${apiBase}/v1/recipes`);
+    const response = await axios.get(
+      `${apiBase}/v1/recipes?limit=${computedLimit}`
+    );
 
     res.status(response.status || 200).json(response.data);
   } catch (error) {

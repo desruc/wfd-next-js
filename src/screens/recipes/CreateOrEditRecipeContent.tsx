@@ -47,7 +47,9 @@ const CreateOrEditRecipeContent: React.FC<CreateOrEditRecipeContent> = ({
 
   const { user } = useUser();
 
-  const { register, handleSubmit, control } = useValidatedForm(createRecipe);
+  const { register, handleSubmit, control, errors } = useValidatedForm(
+    createRecipe
+  );
 
   const [imageSrc, setImageSrc] = useState(
     recipe ? recipe?.image : '/images/recipe-placeholder.png'
@@ -116,7 +118,11 @@ const CreateOrEditRecipeContent: React.FC<CreateOrEditRecipeContent> = ({
         <ImageInput src={computedImage} onSave={onImageChange} />
         <Grid container spacing={2} className={classes.grid}>
           <Grid item xs={12} lg={6}>
-            <RecipeDetails inputRef={register} recipe={recipe} />
+            <RecipeDetails
+              inputRef={register}
+              recipe={recipe}
+              errors={errors}
+            />
           </Grid>
           <Grid item xs={12} lg={6}>
             <RecipeIngredients
@@ -133,6 +139,7 @@ const CreateOrEditRecipeContent: React.FC<CreateOrEditRecipeContent> = ({
               onSubmit={onSubmit}
               checkboxControl={control}
               recipe={recipe}
+              errors={errors}
             />
           </Grid>
         </Grid>

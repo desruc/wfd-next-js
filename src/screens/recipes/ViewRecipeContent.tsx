@@ -5,9 +5,12 @@ import { useUser } from '@auth0/nextjs-auth0';
 import { Recipe, RecipeRating } from 'wfd';
 
 import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
 
 import RecipeHero from '~/components/Recipes/RecipeHero';
 import RecipeMeta from '~/components/Recipes/RecipeMeta';
+import IngredientList from '~/components/Recipes/IngredientList';
+import Instructions from '~/components/Recipes/Instructions';
 
 interface ViewRecipeContentProps {
   recipe: Recipe;
@@ -48,6 +51,14 @@ const ViewRecipeContent: React.FC<ViewRecipeContentProps> = ({
           prepTime={recipe?.prepTime}
           cookingTime={recipe?.cookingTime}
         />
+        <Grid container spacing={2}>
+          <Grid item xs={12} lg={8}>
+            <Instructions instructions={recipe?.instructions} />
+          </Grid>
+          <Grid item xs={12} lg={4}>
+            <IngredientList ingredients={recipe?.ingredients} />
+          </Grid>
+        </Grid>
       </Container>
     </main>
   );

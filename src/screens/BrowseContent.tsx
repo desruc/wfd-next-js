@@ -36,7 +36,7 @@ const BrowseContent: React.FC<IndexProps> = ({ recipes }: IndexProps) => {
       <Container maxWidth="xl">
         <PageHeader title="Browse" headerAction={user ? headerAction : null} />
         <RecipeCardList
-          title="Recent recipes"
+          title="All recipes"
           recipes={recipes}
           onRecipeClick={onRecipeClick}
         />

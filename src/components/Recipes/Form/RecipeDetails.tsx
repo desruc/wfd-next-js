@@ -16,11 +16,13 @@ const useStyles = makeStyles((theme) => ({
 interface RecipeDetailsProps {
   inputRef: React.Ref<HTMLInputElement>;
   recipe?: Recipe;
+  errors?: Record<string, string[]>;
 }
 
 const RecipeDetails: React.FC<RecipeDetailsProps> = ({
   inputRef,
-  recipe
+  recipe,
+  errors
 }: RecipeDetailsProps) => {
   const classes = useStyles();
 
@@ -33,6 +35,7 @@ const RecipeDetails: React.FC<RecipeDetailsProps> = ({
         name="title"
         required
         defaultValue={recipe?.title}
+        errors={errors}
       />
       <TextInput
         inputRef={inputRef}
@@ -41,6 +44,7 @@ const RecipeDetails: React.FC<RecipeDetailsProps> = ({
         name="description"
         required
         defaultValue={recipe?.description}
+        errors={errors}
       />
       <TextInput
         inputRef={inputRef}
@@ -49,6 +53,7 @@ const RecipeDetails: React.FC<RecipeDetailsProps> = ({
         name="prepTime"
         type="number"
         defaultValue={recipe?.prepTime}
+        errors={errors}
       />
       <TextInput
         inputRef={inputRef}
@@ -58,6 +63,7 @@ const RecipeDetails: React.FC<RecipeDetailsProps> = ({
         type="number"
         required
         defaultValue={recipe?.cookingTime}
+        errors={errors}
       />
       <TextInput
         inputRef={inputRef}
@@ -65,13 +71,15 @@ const RecipeDetails: React.FC<RecipeDetailsProps> = ({
         label="Link to original"
         name="originalUrl"
         placeholder="Did you find this recipe on another site? Give credit where credit is due! Add the link here"
+        errors={errors}
       />
     </Paper>
   );
 };
 
 RecipeDetails.defaultProps = {
-  recipe: null
+  recipe: null,
+  errors: null
 };
 
 export default RecipeDetails;

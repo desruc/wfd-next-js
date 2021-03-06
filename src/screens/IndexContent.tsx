@@ -43,15 +43,6 @@ const IndexContent: React.FC<IndexProps> = ({ recipes }: IndexProps) => {
             onRecipeClick={onRecipeClick}
           />
         </section>
-        <Divider />
-        <section className={classes.cardList}>
-          <RecipeCardList
-            title="Popular Recipes"
-            link="/browse"
-            recipes={recipes}
-            onRecipeClick={onRecipeClick}
-          />
-        </section>
       </Container>
     </main>
   );
