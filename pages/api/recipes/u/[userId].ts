@@ -1,12 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import getConfig from 'next/config';
-
 import getAxiosWithAuth from '~/utils/getAxiosWithAuth';
-
-const {
-  publicRuntimeConfig: { apiBase }
-} = getConfig();
 
 export default async (
   req: NextApiRequest,
@@ -20,7 +14,7 @@ export default async (
 
       const axios = await getAxiosWithAuth(req, res);
 
-      const response = await axios.get(`${apiBase}/v1/recipes/user/${userId}`);
+      const response = await axios.get(`/v1/recipes/user/${userId}`);
 
       res.status(response.status || 200).json(response.data);
     } catch (error) {
