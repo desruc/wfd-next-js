@@ -67,7 +67,7 @@ const CreateOrEditRecipeContent: React.FC<CreateOrEditRecipeContent> = ({
     setIngredients(ingredients.filter((e, i) => i !== idx));
 
   const onIngredientChange = (
-    e: React.FormEvent<HTMLInputElement>,
+    e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
     idx: number
   ) =>
     setIngredients(

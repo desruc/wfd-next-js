@@ -7,7 +7,8 @@ import Container from '@material-ui/core/Container';
 
 import PageHeader from '~/components/Global/PageHeader';
 import ProfileForm from '~/components/Users/ProfileForm';
-import Snackbar from '~/components/Global/Snackbar';
+
+import useSnackbar from '~/hooks/useSnackbar';
 
 interface ProfileContentProps {
   user: User;
@@ -21,21 +22,14 @@ interface UserPayload {
 const ProfileContent: React.FC<ProfileContentProps> = ({
   user
 }: ProfileContentProps) => {
-  const [snackbarProps, setSnackbarProps] = useState({
-    open: false,
-    variant: 'success',
-    content: 'Profile updated successfully'
-  });
-
-  const toggleSnackbar = () =>
-    setSnackbarProps((p) => ({ ...p, open: !p.open }));
+  const { openSnackbar } = useSnackbar();
 
   const [saving, setSaving] = useState(false);
 
   const onSubmit = (data: UserPayload): void => {
     setSaving(true);
     axios.put('/api/user', data).then(() => {
-      toggleSnackbar();
+      openSnackbar('Profile updated successfully');
       setSaving(false);
     });
   };
@@ -49,12 +43,6 @@ const ProfileContent: React.FC<ProfileContentProps> = ({
           firstName={user?.firstName || ''}
           lastName={user?.lastName || ''}
           saving={saving}
-        />
-        <Snackbar
-          open={snackbarProps.open}
-          variant={snackbarProps.variant}
-          content={snackbarProps.content}
-          handleClose={toggleSnackbar}
         />
       </Container>
     </main>

@@ -90,7 +90,10 @@ interface RecipeIngredientsProps {
   showLabel?: boolean;
   ingredients: string[];
   onAdd: () => void;
-  onChange: (e: React.FormEvent<HTMLInputElement>, idx: number) => void;
+  onChange: (
+    e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
+    idx: number
+  ) => void;
   onRemove: (idx: number) => void;
 }
 
@@ -105,7 +108,10 @@ const RecipeIngredients: React.FC<RecipeIngredientsProps> = ({
 
   const [editIdx, setEditIdx] = useState(0);
 
-  const handleChange = (e: React.FormEvent<HTMLInputElement>, idx: number) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
+    idx: number
+  ) => {
     setEditIdx(idx);
     onChange(e, idx);
   };
