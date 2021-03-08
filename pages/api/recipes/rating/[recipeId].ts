@@ -1,12 +1,6 @@
 import { withApiAuthRequired } from '@auth0/nextjs-auth0';
 
-import getConfig from 'next/config';
-
 import getAxiosWithAuth from '~/utils/getAxiosWithAuth';
-
-const {
-  publicRuntimeConfig: { apiBase }
-} = getConfig();
 
 export default withApiAuthRequired(async function createRecipe(req, res) {
   const axios = await getAxiosWithAuth(req, res);
@@ -18,7 +12,7 @@ export default withApiAuthRequired(async function createRecipe(req, res) {
       } = req;
 
       const response = await axios.post(
-        `${apiBase}/v1/recipes/${recipeId}/rating`,
+        `/v1/recipes/${recipeId}/rating`,
         req.body
       );
 
@@ -34,9 +28,7 @@ export default withApiAuthRequired(async function createRecipe(req, res) {
         query: { recipeId }
       } = req;
 
-      const response = await axios.get(
-        `${apiBase}/v1/recipes/${recipeId}/rating`
-      );
+      const response = await axios.get(`/v1/recipes/${recipeId}/rating`);
 
       res.status(response.status || 200).json(response.data);
     } catch (error) {

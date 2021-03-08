@@ -1,12 +1,6 @@
 import { withApiAuthRequired } from '@auth0/nextjs-auth0';
 
-import getConfig from 'next/config';
-
 import getAxiosWithAuth from '~/utils/getAxiosWithAuth';
-
-const {
-  publicRuntimeConfig: { apiBase }
-} = getConfig();
 
 export default withApiAuthRequired(async function editRecipe(req, res) {
   try {
@@ -16,10 +10,7 @@ export default withApiAuthRequired(async function editRecipe(req, res) {
 
     const axios = await getAxiosWithAuth(req, res);
 
-    const response = await axios.put(
-      `${apiBase}/v1/recipes/${recipeId}`,
-      req.body
-    );
+    const response = await axios.put(`/v1/recipes/${recipeId}`, req.body);
 
     res.status(response.status || 200).json(response.data);
   } catch (error) {

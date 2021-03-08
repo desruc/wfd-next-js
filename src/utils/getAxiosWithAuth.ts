@@ -10,6 +10,8 @@ export default async (
 ): Promise<AxiosInstance> => {
   const authData = await getAccessToken(req, res).catch(() => null);
 
+  axiosWithAuth.defaults.baseURL = process.env.API_BASE_ROUTE;
+
   axiosWithAuth.defaults.headers = authData
     ? { Authorization: `Bearer ${authData.accessToken}` }
     : {};
