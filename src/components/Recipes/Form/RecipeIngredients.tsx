@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import cn from 'classnames';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -11,7 +11,7 @@ import IconButton from '@material-ui/core/IconButton';
 import AddCircleOutlinedIcon from '@material-ui/icons/AddCircleOutlined';
 import RemoveCircleOutlinedIcon from '@material-ui/icons/RemoveCircleOutlined';
 
-import { randomId } from '~/utils/helpers';
+import usePrevious from '~/hooks/usePrevious';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -106,20 +106,26 @@ const RecipeIngredients: React.FC<RecipeIngredientsProps> = ({
 }: RecipeIngredientsProps) => {
   const classes = useStyles();
 
-  const [editIdx, setEditIdx] = useState(0);
-
   const handleChange = (
     e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
     idx: number
   ) => {
-    setEditIdx(idx);
     onChange(e, idx);
   };
 
   const handleAdd = () => {
-    setEditIdx(ingredients.length);
     onAdd();
   };
+
+  const handleEnter: React.KeyboardEventHandler<
+    HTMLTextAreaElement | HTMLInputElement
+  > = (e) => {
+    if (e.key === 'Enter') {
+      onAdd();
+    }
+  };
+
+  const prevLength = usePrevious(ingredients.length);
 
   const hasValues = ingredients.length > 0;
 
@@ -133,30 +139,37 @@ const RecipeIngredients: React.FC<RecipeIngredientsProps> = ({
         </InputLabel>
       )}
       <ul className={classes.list}>
-        {ingredients.map((value, index) => (
-          <li
-            key={randomId()}
-            className={cn(classes.listItem, classes.inputListItem)}
-          >
-            <div className={classes.inputWrap}>
-              <Input
-                fullWidth
-                classes={{ input: classes.input }}
-                value={value}
-                onChange={(e) => handleChange(e, index)}
-                autoFocus={editIdx === index}
-              />
-              <IconButton
-                onClick={() => onRemove(index)}
-                size="small"
-                title="Remove list item"
-                aria-label="Remove list item"
-              >
-                <RemoveCircleOutlinedIcon />
-              </IconButton>
-            </div>
-          </li>
-        ))}
+        {ingredients.map((value, index) => {
+          const autoFocus =
+            (prevLength === 0 && !value) || (!value && index !== 0);
+
+          return (
+            <li
+              key={['indregrient', index].join('_')}
+              className={cn(classes.listItem, classes.inputListItem)}
+            >
+              <div className={classes.inputWrap}>
+                <Input
+                  key={['indregrient', index].join('_')}
+                  fullWidth
+                  classes={{ input: classes.input }}
+                  value={value}
+                  onChange={(e) => handleChange(e, index)}
+                  autoFocus={autoFocus}
+                  onKeyDown={handleEnter}
+                />
+                <IconButton
+                  onClick={() => onRemove(index)}
+                  size="small"
+                  title="Remove list item"
+                  aria-label="Remove list item"
+                >
+                  <RemoveCircleOutlinedIcon />
+                </IconButton>
+              </div>
+            </li>
+          );
+        })}
       </ul>
       <div
         className={cn(classes.listItem, classes.addItem)}
