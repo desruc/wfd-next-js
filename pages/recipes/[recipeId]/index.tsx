@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 
 import { NextPage } from 'next';
 
+import Loader from '~/components/Global/Loader';
 import ViewRecipeContent from '~/screens/recipes/ViewRecipeContent';
 
 const ViewRecipePage: NextPage = () => {
@@ -15,11 +16,15 @@ const ViewRecipePage: NextPage = () => {
 
   const { data: ratingResponse } = useSWR(`/api/recipes/rating/${recipeId}`);
 
+  const loading = !recipeResponse && !ratingResponse;
+
   return (
-    <ViewRecipeContent
-      recipe={recipeResponse?.data}
-      authUserRating={ratingResponse?.data}
-    />
+    <Loader loading={loading}>
+      <ViewRecipeContent
+        recipe={recipeResponse?.data}
+        authUserRating={ratingResponse?.data}
+      />
+    </Loader>
   );
 };
 

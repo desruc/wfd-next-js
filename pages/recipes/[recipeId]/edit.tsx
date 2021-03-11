@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 
 import { NextPage } from 'next';
 
+import Loader from '~/components/Global/Loader';
 import CreateOrEditRecipeContent from '~/screens/recipes/CreateOrEditRecipeContent';
 
 const CreateRecipePage: NextPage = () => {
@@ -14,7 +15,11 @@ const CreateRecipePage: NextPage = () => {
 
   const { data: recipeResponse } = useSWR(`/api/recipes/${recipeId}`);
 
-  return <CreateOrEditRecipeContent recipe={recipeResponse?.data} />;
+  return (
+    <Loader loading={!recipeResponse}>
+      <CreateOrEditRecipeContent recipe={recipeResponse?.data} />;
+    </Loader>
+  );
 };
 
 export const getServerSideProps = withPageAuthRequired();

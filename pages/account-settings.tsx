@@ -4,12 +4,17 @@ import useSWR from 'swr';
 
 import { NextPage } from 'next';
 
+import Loader from '~/components/Global/Loader';
 import ProfileContent from '~/screens/user/ProfileContent';
 
 const CreateRecipePage: NextPage = () => {
   const { data: userResponse } = useSWR('/api/user');
 
-  return <ProfileContent user={userResponse?.data} />;
+  return (
+    <Loader loading={!userResponse}>
+      <ProfileContent user={userResponse?.data} />
+    </Loader>
+  );
 };
 
 export const getServerSideProps = withPageAuthRequired();
