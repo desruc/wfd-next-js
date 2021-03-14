@@ -4,6 +4,7 @@ import { useUser } from '@auth0/nextjs-auth0';
 
 import { Recipe, RecipeRating } from 'wfd';
 
+import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 
@@ -11,6 +12,14 @@ import RecipeHero from '~/components/Recipes/RecipeHero';
 import RecipeMeta from '~/components/Recipes/RecipeMeta';
 import IngredientList from '~/components/Recipes/IngredientList';
 import Instructions from '~/components/Recipes/Instructions';
+
+const useStyles = makeStyles((theme) => ({
+  grid: {
+    [theme.breakpoints.down('lg')]: {
+      flexDirection: 'column-reverse'
+    }
+  }
+}));
 
 interface ViewRecipeContentProps {
   recipe: Recipe;
@@ -21,6 +30,8 @@ const ViewRecipeContent: React.FC<ViewRecipeContentProps> = ({
   recipe,
   authUserRating
 }: ViewRecipeContentProps) => {
+  const classes = useStyles();
+
   const { user } = useUser();
 
   const [newRating, setNewRating] = useState(null);
@@ -51,7 +62,7 @@ const ViewRecipeContent: React.FC<ViewRecipeContentProps> = ({
           prepTime={recipe?.prepTime}
           cookingTime={recipe?.cookingTime}
         />
-        <Grid container spacing={2}>
+        <Grid container spacing={2} className={classes.grid}>
           <Grid item xs={12} lg={8}>
             <Instructions instructions={recipe?.instructions} />
           </Grid>
