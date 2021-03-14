@@ -23,7 +23,7 @@ const ViewRecipePage: NextPage = () => {
   const { data: ratingResponse } = useSWR(`/api/recipes/rating/${recipeId}`);
 
   useEffect(() => {
-    if (error) {
+    if (recipeId && error) {
       openSnackbar(
         'That recipe is currently unavailable to the public',
         'error'

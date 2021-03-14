@@ -12,8 +12,8 @@ const IngredientList: React.FC<IngredientListProps> = ({
   <>
     <Typography variant="h6">Ingredients</Typography>
     <ul>
-      {ingredients.map((ingredient) => (
-        <li>{ingredient}</li>
+      {ingredients.map((ingredient, idx) => (
+        <li key={['ingredient', idx].join('')}>{ingredient}</li>
       ))}
     </ul>
   </>
