@@ -36,6 +36,7 @@ interface RecipeDetailsProps {
   checkboxControl: Control<Record<string, any>>; // eslint-disable-line
   onSubmit: () => void;
   errors?: Record<string, string[]>;
+  saving: boolean;
 }
 
 const RecipeInstructions: React.FC<RecipeDetailsProps> = ({
@@ -43,7 +44,8 @@ const RecipeInstructions: React.FC<RecipeDetailsProps> = ({
   recipe,
   checkboxControl,
   onSubmit,
-  errors
+  errors,
+  saving
 }: RecipeDetailsProps) => {
   const classes = useStyles();
 
@@ -76,7 +78,7 @@ const RecipeInstructions: React.FC<RecipeDetailsProps> = ({
         />
       </div>
       <div className={classes.submitContainer}>
-        <Button color="secondary" onClick={onSubmit}>
+        <Button color="secondary" onClick={onSubmit} loading={saving}>
           Submit
         </Button>
       </div>

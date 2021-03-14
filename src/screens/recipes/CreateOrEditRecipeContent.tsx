@@ -41,6 +41,7 @@ const CreateOrEditRecipeContent: React.FC<CreateOrEditRecipeContent> = ({
   recipe
 }: CreateOrEditRecipeContent) => {
   const router = useRouter();
+
   const { openSnackbar } = useSnackbar();
 
   const classes = useStyles();
@@ -50,6 +51,8 @@ const CreateOrEditRecipeContent: React.FC<CreateOrEditRecipeContent> = ({
   const { register, handleSubmit, control, errors } = useValidatedForm(
     createRecipe
   );
+
+  const [saving, setSaving] = useState(false);
 
   const [imageSrc, setImageSrc] = useState(
     recipe ? recipe?.image : '/images/recipe-placeholder.png'
@@ -85,6 +88,8 @@ const CreateOrEditRecipeContent: React.FC<CreateOrEditRecipeContent> = ({
   }, [recipe]);
 
   const onSubmit = handleSubmit((data: RecipePayload): void => {
+    setSaving(true);
+
     const method = recipe ? 'put' : 'post';
 
     const url = recipe
@@ -96,15 +101,24 @@ const CreateOrEditRecipeContent: React.FC<CreateOrEditRecipeContent> = ({
       image: imageSrc,
       ingredients: ingredients.filter(Boolean),
       author: user?.sub
-    }).then(({ data: { data: newRecipe } }) => {
-      const snackbarContent = `Recipe ${
-        recipe ? 'updated' : 'created'
-      } successfully`;
+    })
+      .then(({ data: { data: newRecipe } }) => {
+        const snackbarContent = `Recipe ${
+          recipe ? 'updated' : 'created'
+        } successfully`;
 
-      openSnackbar(snackbarContent);
+        openSnackbar(snackbarContent);
 
-      router.push(`/recipes/${newRecipe.id}`);
-    });
+        router.push(`/recipes/${newRecipe.id}`);
+      })
+      .catch((err) => {
+        setSaving(false);
+
+        openSnackbar(
+          err?.response?.data?.message || 'Something went wrong',
+          'error'
+        );
+      });
   });
 
   const computedImage = imageSrc || recipe?.image;
@@ -140,6 +154,7 @@ const CreateOrEditRecipeContent: React.FC<CreateOrEditRecipeContent> = ({
               checkboxControl={control}
               recipe={recipe}
               errors={errors}
+              saving={saving}
             />
           </Grid>
         </Grid>

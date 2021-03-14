@@ -50,7 +50,7 @@ const Button: React.FC<ButtonProps> = ({
       /* eslint-disable-next-line */
       {...rest}
     >
-      {loading ? <CircularProgress color="secondary" size={24} /> : children}
+      {loading ? <CircularProgress color="inherit" size={24} /> : children}
     </MuiButton>
   );
 };
