@@ -11,7 +11,7 @@ const CreateRecipePage: NextPage = () => {
   const { data: userResponse } = useSWR('/api/user');
 
   return (
-    <Loader loading={!userResponse}>
+    <Loader fullPage loading={!userResponse}>
       <ProfileContent user={userResponse?.data} />
     </Loader>
   );

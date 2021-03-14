@@ -12,15 +12,13 @@ const UserRecipesPage: NextPage = () => {
     query: { userId }
   } = useRouter();
 
-  const { data: userRecipes } = useSWR(`/api/recipes/u/${userId}`);
-
   const { data: userData } = useSWR(`/api/user/${userId}`);
 
-  const loading = !userRecipes && !userData;
+  const loading = !userData;
 
   return (
-    <Loader loading={loading}>
-      <UserRecipesContent recipes={userRecipes?.data} user={userData?.data} />;
+    <Loader fullPage loading={loading}>
+      <UserRecipesContent user={userData?.data} />;
     </Loader>
   );
 };

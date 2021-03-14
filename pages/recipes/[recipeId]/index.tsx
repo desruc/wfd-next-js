@@ -35,7 +35,7 @@ const ViewRecipePage: NextPage = () => {
   const loading = !recipeResponse && !ratingResponse;
 
   return (
-    <Loader loading={loading}>
+    <Loader fullPage loading={loading}>
       <ViewRecipeContent
         recipe={recipeResponse?.data}
         authUserRating={ratingResponse?.data}

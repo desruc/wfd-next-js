@@ -3,13 +3,17 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
+interface UseStyleProps {
+  fullPage: boolean;
+}
+
 const useStyles = makeStyles((theme) => ({
-  wrap: {
-    minHeight: 'calc(100vh - 64px)',
+  wrap: ({ fullPage }: UseStyleProps) => ({
+    minHeight: fullPage ? 'calc(100vh - 64px)' : 'auto',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center'
-  },
+  }),
   box: {
     backgroundColor: '#d8eefe',
     height: 60,
@@ -21,12 +25,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 interface LoaderProps {
+  fullPage?: boolean;
   loading: boolean;
   children: React.ReactNode;
 }
 
-const Loader: React.FC<LoaderProps> = ({ loading, children }: LoaderProps) => {
-  const classes = useStyles();
+const Loader: React.FC<LoaderProps> = ({
+  fullPage,
+  loading,
+  children
+}: LoaderProps) => {
+  const classes = useStyles({ fullPage });
 
   return loading ? (
     <div className={classes.wrap}>
@@ -37,6 +46,10 @@ const Loader: React.FC<LoaderProps> = ({ loading, children }: LoaderProps) => {
   ) : (
     <>{children}</>
   );
+};
+
+Loader.defaultProps = {
+  fullPage: false
 };
 
 export default Loader;

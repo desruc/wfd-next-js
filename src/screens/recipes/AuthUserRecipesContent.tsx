@@ -4,8 +4,6 @@ import { useUser } from '@auth0/nextjs-auth0';
 
 import Link from 'next/link';
 
-import { Recipe } from 'wfd';
-
 import { makeStyles } from '@material-ui/core/styles';
 
 import Container from '@material-ui/core/Container';
@@ -14,7 +12,7 @@ import AddRoundedIcon from '@material-ui/icons/AddRounded';
 import { Typography } from '@material-ui/core';
 import PageHeader from '~/components/Global/PageHeader';
 import Button from '~/components/Inputs/Button';
-import RecipeCardList from '~/components/Recipes/RecipeCardList';
+import PaginatedRecipeCardList from '~/components/Recipes/PaginatedRecipeCardList';
 
 const useStyles = makeStyles((theme) => ({
   bold: {
@@ -34,16 +32,11 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-interface AuthUserRecipesContentProps {
-  recipes: Recipe[];
-}
-
-const AuthUserRecipesContent: React.FC<AuthUserRecipesContentProps> = ({
-  recipes
-}: AuthUserRecipesContentProps) => {
+const AuthUserRecipesContent: React.FC = () => {
   const classes = useStyles();
 
   const router = useRouter();
+
   const { user } = useUser();
 
   const onCreateRecipe = () => router.push('/recipes/create');
@@ -54,8 +47,18 @@ const AuthUserRecipesContent: React.FC<AuthUserRecipesContentProps> = ({
     </Button>
   );
 
-  const onRecipeClick = ({ id: recipeId }) =>
-    router.push(`/recipes/${recipeId}`);
+  const noDataJsx = (
+    <>
+      <Typography align="center" className={classes.bold}>
+        You haven&apos;t shared any recipes...
+      </Typography>
+      <Typography align="center">
+        <Link href="/recipes/create">
+          <a className={classes.link}>Click here to create your first!</a>
+        </Link>
+      </Typography>
+    </>
+  );
 
   return (
     <main>
@@ -64,20 +67,10 @@ const AuthUserRecipesContent: React.FC<AuthUserRecipesContentProps> = ({
           title="Your recipes"
           headerAction={user ? headerAction : null}
         />
-        {!recipes.length ? (
-          <>
-            <Typography align="center" className={classes.bold}>
-              You haven&apos;t shared any recipes...
-            </Typography>
-            <Typography align="center">
-              <Link href="/recipes/create">
-                <a className={classes.link}>Click here to create your first!</a>
-              </Link>
-            </Typography>
-          </>
-        ) : (
-          <RecipeCardList recipes={recipes} onRecipeClick={onRecipeClick} />
-        )}
+        <PaginatedRecipeCardList
+          url="/api/recipes/me"
+          noDataComponent={noDataJsx}
+        />
       </Container>
     </main>
   );

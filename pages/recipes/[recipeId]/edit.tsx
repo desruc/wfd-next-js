@@ -16,7 +16,7 @@ const CreateRecipePage: NextPage = () => {
   const { data: recipeResponse } = useSWR(`/api/recipes/${recipeId}`);
 
   return (
-    <Loader loading={!recipeResponse}>
+    <Loader fullPage loading={!recipeResponse}>
       <CreateOrEditRecipeContent recipe={recipeResponse?.data} />;
     </Loader>
   );

@@ -10,7 +10,7 @@ const IndexPage: NextPage = () => {
   const { data } = useSWR('/api/recipes/public?limit=12');
 
   return (
-    <Loader loading={!data}>
+    <Loader fullPage loading={!data}>
       <IndexContent recipes={data?.data} />;
     </Loader>
   );
