@@ -17,8 +17,8 @@ export default async (
 
     res.status(response.status || 200).json(response.data);
   } catch (error) {
-    res.status(error.response?.data.error.status || 500).json({
-      ...error.response?.data.error
+    res.status(error.response?.data.status || 500).json({
+      ...error.response?.data
     });
   }
 };

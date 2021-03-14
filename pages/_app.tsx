@@ -5,6 +5,9 @@ import { AppProps } from 'next/app';
 
 import { UserProvider } from '@auth0/nextjs-auth0';
 
+import { SWRConfig } from 'swr';
+import axios from 'axios';
+
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Box from '@material-ui/core/Box';
@@ -41,21 +44,33 @@ export default function App(props: AppProps): JSX.Element {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <UserProvider user={user}>
-          <SnackbarProvider>
-            <Navigation />
-            <Box display="flex">
-              <Box
-                flexGrow={1}
-                overflow="hidden"
-                paddingTop={8}
-                paddingBottom={7}
-                minHeight="100vh"
-              >
-                <Component {...pageProps} />
+          <SWRConfig
+            value={{
+              fetcher: (url) =>
+                axios
+                  .get(url)
+                  .then((res) => res.data)
+                  .catch((err) => {
+                    throw new Error(err.response.data.message);
+                  })
+            }}
+          >
+            <SnackbarProvider>
+              <Navigation />
+              <Box display="flex">
+                <Box
+                  flexGrow={1}
+                  overflow="hidden"
+                  paddingTop={8}
+                  paddingBottom={7}
+                  minHeight="100vh"
+                >
+                  <Component {...pageProps} />
+                </Box>
               </Box>
-            </Box>
-            <Footer />
-          </SnackbarProvider>
+              <Footer />
+            </SnackbarProvider>
+          </SWRConfig>
         </UserProvider>
       </ThemeProvider>
     </>
