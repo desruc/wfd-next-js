@@ -17,7 +17,7 @@ const UserHeader: React.FC<UserHeaderProps> = ({
   const computedName = firstName && !lastName ? firstName : fullName;
 
   return (
-    <Box marginTop={6}>
+    <Box marginTop={6} marginBottom={4}>
       <Typography variant="h2" align="center">
         {computedName}
       </Typography>
