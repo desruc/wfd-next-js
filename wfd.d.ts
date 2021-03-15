@@ -14,7 +14,7 @@ export interface Recipe {
   isAuthor?: boolean;
   currentRating: number;
   createdAt: string;
-  ingredients: string[];
+  ingredients: { qty: string; name: string }[];
   instructions: string;
 }
 

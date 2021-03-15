@@ -61,10 +61,11 @@ const CreateOrEditRecipeContent: React.FC<CreateOrEditRecipeContent> = ({
   const onImageChange = (src: string) => setImageSrc(src);
 
   const [ingredients, setIngredients] = useState(
-    recipe ? recipe.ingredients : ['']
+    recipe ? recipe.ingredients : [{ qty: '', name: '' }]
   );
 
-  const addIngredient = () => setIngredients((i) => [...i, '']);
+  const addIngredient = () =>
+    setIngredients((i) => [...i, { qty: '', name: '' }]);
 
   const removeIngredient = (idx: number) =>
     setIngredients(ingredients.filter((e, i) => i !== idx));
@@ -75,7 +76,8 @@ const CreateOrEditRecipeContent: React.FC<CreateOrEditRecipeContent> = ({
   ) =>
     setIngredients(
       ingredients.map((element, i) => {
-        if (i === idx) return e.currentTarget.value;
+        if (i === idx)
+          return { ...element, [e.currentTarget.name]: e.currentTarget.value };
         return element;
       })
     );

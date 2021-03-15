@@ -67,6 +67,16 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '0.875rem',
     padding: '0px 0px 5px'
   },
+  qtyRoot: {
+    width: 50
+  },
+  qtyInput: {
+    textAlign: 'center'
+  },
+  divider: {
+    fontWeight: 700,
+    margin: `0px ${theme.spacing(2)}px`
+  },
   addItem: {
     display: 'flex',
     alignItems: 'center',
@@ -88,7 +98,7 @@ const useStyles = makeStyles((theme) => ({
 
 interface RecipeIngredientsProps {
   showLabel?: boolean;
-  ingredients: string[];
+  ingredients: { qty: string; name: string }[];
   onAdd: () => void;
   onChange: (
     e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
@@ -139,9 +149,8 @@ const RecipeIngredients: React.FC<RecipeIngredientsProps> = ({
         </InputLabel>
       )}
       <ul className={classes.list}>
-        {ingredients.map((value, index) => {
-          const autoFocus =
-            (prevLength === 0 && !value) || (!value && index !== 0);
+        {ingredients.map(({ qty, name }, index) => {
+          const autoFocus = (prevLength === 0 && !qty) || (!qty && index !== 0);
 
           return (
             <li
@@ -150,12 +159,27 @@ const RecipeIngredients: React.FC<RecipeIngredientsProps> = ({
             >
               <div className={classes.inputWrap}>
                 <Input
+                  key={['indregrient-qty', index].join('_')}
+                  classes={{
+                    root: classes.qtyRoot,
+                    input: cn(classes.input, classes.qtyInput)
+                  }}
+                  name="qty"
+                  value={qty}
+                  onChange={(e) => handleChange(e, index)}
+                  placeholder="1 tsp"
+                  autoFocus={autoFocus}
+                  onKeyDown={handleEnter}
+                />
+                <span className={classes.divider}>x</span>
+                <Input
                   key={['indregrient', index].join('_')}
+                  name="name"
+                  value={name}
                   fullWidth
                   classes={{ input: classes.input }}
-                  value={value}
                   onChange={(e) => handleChange(e, index)}
-                  autoFocus={autoFocus}
+                  placeholder="Butter"
                   onKeyDown={handleEnter}
                 />
                 <IconButton
