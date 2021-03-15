@@ -19,7 +19,10 @@ export const createRecipe = Joi.object().keys({
     'string.empty': 'You must supply instructions.',
     'any.required': 'You must supply instructions.'
   }),
-  originalUrl: Joi.string().allow(null, '')
+  originalUrl: Joi.string()
+    .uri()
+    .message('You must supply a valid URL.')
+    .allow(null, '')
 });
 
 export default createRecipe;

@@ -72,6 +72,7 @@ const RecipeDetails: React.FC<RecipeDetailsProps> = ({
         name="originalUrl"
         placeholder="Did you find this recipe on another site? Give credit where credit is due! Add the link here"
         errors={errors}
+        defaultValue={recipe?.originalUrl}
       />
     </Paper>
   );
