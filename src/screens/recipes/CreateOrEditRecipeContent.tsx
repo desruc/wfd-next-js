@@ -12,6 +12,7 @@ import Grid from '@material-ui/core/Grid';
 import PageHeader from '~/components/Global/PageHeader';
 import RecipeIngredients from '~/components/Recipes/Form/RecipeIngredients';
 import RecipeDetails from '~/components/Recipes/Form/RecipeDetails';
+import RecipeTags from '~/components/Recipes/Form/RecipeTags';
 import RecipeInstructions from '~/components/Recipes/Form/RecipeInstructions';
 
 import { useValidatedForm } from '~/validation';
@@ -82,10 +83,18 @@ const CreateOrEditRecipeContent: React.FC<CreateOrEditRecipeContent> = ({
       })
     );
 
+  const [tags, setTags] = useState([]);
+
+  const addTag = (newTag: string) => setTags((t) => [...t, newTag]);
+
+  const removeTag = (oldTag: string) =>
+    setTags((t) => t.filter((i) => i !== oldTag));
+
   useEffect(() => {
     if (recipe) {
       setIngredients(recipe.ingredients);
       setImageSrc(recipe.image);
+      setTags(recipe.tags);
     }
   }, [recipe]);
 
@@ -102,7 +111,8 @@ const CreateOrEditRecipeContent: React.FC<CreateOrEditRecipeContent> = ({
       ...data,
       image: imageSrc,
       ingredients: ingredients.filter(Boolean),
-      author: user?.sub
+      author: user?.sub,
+      tags
     })
       .then(({ data: { data: newRecipe } }) => {
         const snackbarContent = `Recipe ${
@@ -148,6 +158,9 @@ const CreateOrEditRecipeContent: React.FC<CreateOrEditRecipeContent> = ({
               onChange={onIngredientChange}
               onRemove={removeIngredient}
             />
+          </Grid>
+          <Grid item xs={12}>
+            <RecipeTags tags={tags} onRemove={removeTag} onSubmit={addTag} />
           </Grid>
           <Grid item xs={12}>
             <RecipeInstructions

@@ -17,6 +17,7 @@ export interface Recipe {
   ingredients: { qty: string; name: string }[];
   instructions: string;
   originalUrl?: string;
+  tags: string[];
 }
 
 export interface User {
