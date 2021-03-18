@@ -18,6 +18,7 @@ export interface Recipe {
   instructions: string;
   originalUrl?: string;
   tags: string[];
+  difficulty: 'easy' | 'moderate' | 'hard';
 }
 
 export interface User {

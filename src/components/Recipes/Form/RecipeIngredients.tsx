@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     padding: `${theme.spacing(1)}px 0px`,
     margin: `${theme.spacing(2)}px 0px 0px`,
     [theme.breakpoints.up('lg')]: {
-      height: 302,
+      height: 382,
       overflowY: 'auto'
     },
     '& .MuiSvgIcon-root': {

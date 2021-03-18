@@ -22,7 +22,8 @@ export const createRecipe = Joi.object().keys({
   originalUrl: Joi.string()
     .uri()
     .message('You must supply a valid URL.')
-    .allow(null, '')
+    .allow(null, ''),
+  difficulty: Joi.string().allow('easy', 'moderate', 'difficulty')
 });
 
 export default createRecipe;

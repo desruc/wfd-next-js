@@ -146,6 +146,7 @@ const CreateOrEditRecipeContent: React.FC<CreateOrEditRecipeContent> = ({
           <Grid item xs={12} lg={6}>
             <RecipeDetails
               inputRef={register}
+              selectControl={control}
               recipe={recipe}
               errors={errors}
             />

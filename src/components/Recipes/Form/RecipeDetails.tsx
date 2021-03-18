@@ -1,11 +1,13 @@
 import React from 'react';
 
 import { Recipe } from 'wfd';
+import { Control } from 'react-hook-form';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 
 import TextInput from '~/components/Inputs/TextInput';
+import Select from '~/components/Inputs/Select';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -14,15 +16,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 interface RecipeDetailsProps {
-  inputRef: React.Ref<HTMLInputElement>;
   recipe?: Recipe;
   errors?: Record<string, string[]>;
+  inputRef: React.Ref<HTMLInputElement>;
+  selectControl: Control<Record<string, any>>; // eslint-disable-line
 }
 
 const RecipeDetails: React.FC<RecipeDetailsProps> = ({
   inputRef,
   recipe,
-  errors
+  errors,
+  selectControl
 }: RecipeDetailsProps) => {
   const classes = useStyles();
 
@@ -64,6 +68,18 @@ const RecipeDetails: React.FC<RecipeDetailsProps> = ({
         required
         defaultValue={recipe?.cookingTime}
         errors={errors}
+      />
+      <Select
+        id="difficulty-input"
+        name="difficulty"
+        label="Difficulty"
+        control={selectControl}
+        options={[
+          { label: 'Easy', value: 'easy' },
+          { label: 'Moderate', value: 'moderate' },
+          { label: 'Difficult', value: 'difficult' }
+        ]}
+        defaultValue={recipe?.difficulty || 'easy'}
       />
       <TextInput
         inputRef={inputRef}
