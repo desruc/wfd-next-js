@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
+import qs from 'query-string';
 
 import Box from '@material-ui/core/Box';
 
@@ -24,7 +25,15 @@ const PaginatedRecipeCardList: React.FC<PaginatedRecipeCardListProps> = ({
 
   const [page, setPage] = useState(0);
 
-  const { data } = useSWR(`${url}?page=0&limit=${limit}`);
+  const parsed = qs.parseUrl(url);
+
+  const hasAdditionalQuery = Object.keys(parsed.query).length;
+
+  const computedUrl = `${url}${
+    hasAdditionalQuery ? '&' : '?'
+  }page=${page}&limit=${limit}`;
+
+  const { data } = useSWR(computedUrl);
 
   const onLoadMore = () => setPage(page + 1);
 
@@ -47,7 +56,7 @@ const PaginatedRecipeCardList: React.FC<PaginatedRecipeCardListProps> = ({
             {[...new Array(page)].map((_, idx) => (
               <NetworkRecipeCardList
                 key={['recipe-list', idx].join('_')}
-                url={`${url}?page=${page}&limit=${limit}`}
+                url={computedUrl}
               />
             ))}
             <Box textAlign="center" marginTop={3} marginBottom={3}>

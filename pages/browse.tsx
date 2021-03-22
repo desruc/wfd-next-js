@@ -1,10 +1,12 @@
 import React from 'react';
 import { NextPage } from 'next';
 
-import BrowseContent from '~/screens/BrowseContent';
+import RecipeListContent from '~/screens/RecipeListContent';
 
 const BrowsePage: NextPage = () => {
-  return <BrowseContent />;
+  return (
+    <RecipeListContent pageTitle="Browse" recipeUrl="/api/recipes/public" />
+  );
 };
 
 export default BrowsePage;

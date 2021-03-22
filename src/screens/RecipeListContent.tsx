@@ -10,7 +10,15 @@ import PageHeader from '~/components/Global/PageHeader';
 import Button from '~/components/Inputs/Button';
 import PaginatedRecipeCardList from '~/components/Recipes/PaginatedRecipeCardList';
 
-const BrowseContent: React.FC = () => {
+interface RecipeListContentProps {
+  pageTitle: string;
+  recipeUrl: string;
+}
+
+const RecipeListContent: React.FC<RecipeListContentProps> = ({
+  pageTitle,
+  recipeUrl
+}: RecipeListContentProps) => {
   const { user } = useUser();
 
   const router = useRouter();
@@ -26,15 +34,14 @@ const BrowseContent: React.FC = () => {
   return (
     <main>
       <Container maxWidth="xl">
-        <PageHeader title="Browse" headerAction={user ? headerAction : null} />
-        <PaginatedRecipeCardList url="/api/recipes/public" />
+        <PageHeader
+          title={pageTitle}
+          headerAction={user ? headerAction : null}
+        />
+        <PaginatedRecipeCardList url={recipeUrl} />
       </Container>
     </main>
   );
 };
 
-BrowseContent.defaultProps = {
-  totalRecipes: 0
-};
-
-export default BrowseContent;
+export default RecipeListContent;
