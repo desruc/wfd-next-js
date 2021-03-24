@@ -22,7 +22,10 @@ const UserHeader: React.FC<UserHeaderProps> = ({
         {computedName}
       </Typography>
       {!firstName && (
-        <Typography>This user hasn`&apos;`t supplied a name</Typography>
+        <Typography align="center">
+          This user isn&apos;t actually a phantom... They just haven&apos;t
+          supplied a name!
+        </Typography>
       )}
     </Box>
   );

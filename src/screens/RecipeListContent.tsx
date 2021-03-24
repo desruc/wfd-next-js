@@ -3,6 +3,7 @@ import { useUser } from '@auth0/nextjs-auth0';
 import { useRouter } from 'next/router';
 
 import Container from '@material-ui/core/Container';
+import Typography from '@material-ui/core/Typography';
 
 import AddRoundedIcon from '@material-ui/icons/AddRounded';
 
@@ -31,6 +32,10 @@ const RecipeListContent: React.FC<RecipeListContentProps> = ({
     </Button>
   );
 
+  const noDataJsx = (
+    <Typography align="center">There&apos;s nothing here yet...</Typography>
+  );
+
   return (
     <main>
       <Container maxWidth="xl">
@@ -38,7 +43,7 @@ const RecipeListContent: React.FC<RecipeListContentProps> = ({
           title={pageTitle}
           headerAction={user ? headerAction : null}
         />
-        <PaginatedRecipeCardList url={recipeUrl} />
+        <PaginatedRecipeCardList url={recipeUrl} noDataComponent={noDataJsx} />
       </Container>
     </main>
   );

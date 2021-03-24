@@ -61,6 +61,8 @@ const ViewRecipeContent: React.FC<ViewRecipeContentProps> = ({
           author={recipe?.author}
           prepTime={recipe?.prepTime}
           cookingTime={recipe?.cookingTime}
+          tags={recipe?.tags}
+          difficulty={recipe?.difficulty}
         />
         <Grid container spacing={2} className={classes.grid}>
           <Grid item xs={12} lg={8}>
