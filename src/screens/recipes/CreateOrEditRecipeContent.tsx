@@ -83,7 +83,7 @@ const CreateOrEditRecipeContent: React.FC<CreateOrEditRecipeContent> = ({
       })
     );
 
-  const [tags, setTags] = useState([]);
+  const [tags, setTags] = useState<string[]>([]);
 
   const addTag = (newTag: string) => setTags((t) => [...t, newTag]);
 
@@ -112,7 +112,7 @@ const CreateOrEditRecipeContent: React.FC<CreateOrEditRecipeContent> = ({
       image: imageSrc,
       ingredients: ingredients.filter(Boolean),
       author: user?.sub,
-      tags
+      tags: tags.map((t) => t.toLocaleLowerCase())
     })
       .then(({ data: { data: newRecipe } }) => {
         const snackbarContent = `Recipe ${

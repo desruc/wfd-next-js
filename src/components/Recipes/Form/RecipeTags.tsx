@@ -51,7 +51,7 @@ const RecipeTags: React.FC<RecipeTagsProps> = ({
   const [newTag, setNewTag] = useState('');
 
   const handleSubmit = () => {
-    onSubmit(newTag.replace(',', ''));
+    onSubmit(newTag.replace(',', '').trim());
     setNewTag('');
   };
 
