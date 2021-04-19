@@ -24,7 +24,8 @@ const IngredientList: React.FC<IngredientListProps> = ({
       <ul>
         {ingredients.map(({ qty, name }, idx) => (
           <li key={['ingredient', idx].join('')}>
-            <span className={classes.bold}>{name}</span> ({qty})
+            <span className={classes.bold}>{name}</span>
+            {qty && <span> ({qty})</span>}
           </li>
         ))}
       </ul>

@@ -9,12 +9,14 @@ const useStyles = makeStyles((theme) => ({
   footer: {
     marginTop: theme.spacing(8),
     padding: `${theme.spacing(4)}px 0px`,
-    backgroundColor: theme.palette.primary.dark,
-    color: `${theme.palette.common.white} !important`
+    backgroundColor: 'transparent',
+    color: `${theme.palette.text.primary} !important`,
+    textAlign: 'right'
   },
   link: {
-    color: theme.palette.common.white,
+    color: theme.palette.text.primary,
     textDecoration: 'none',
+    fontWeight: 700,
     transition: theme.transitions.create(['color'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen
