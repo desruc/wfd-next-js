@@ -9,7 +9,7 @@ export default async function publicRecipes(
   try {
     const { page, limit, tags, difficulty } = req.query;
 
-    const computedDifficulty = ['easy', 'moderate', 'difficult'].some(
+    const computedDifficulty = ['easy', 'moderate', 'difficult'].find(
       (d) => d === difficulty
     );
 
